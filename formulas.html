@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Все формулы — Физика 11 класс</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="dependencies/katex/dist/katex.min.css">
+</head>
+
+<script defer src="dependencies/katex/dist/katex.min.js"></script>
+<script defer src="dependencies/katex/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]
+  });"></script>
+
+<body>
+<aside>
+  <h2>Глава 1. Механические колебания и волны</h2>
+    <ul class="topic-list">
+        <li><a href="topic1.html">1. Колебательное движение. Гармонические колебания</a></li>
+        <li><a href="topic2.html">2. Пружинный и математический маятники</a></li>
+        <li><a href="topic3.html">3. Превращения энергии при гармонических колебаниях</a></li>
+        <li><a href="topic4.html">4. Свободные и вынужденные колебания. Резонанс</a></li>
+        <li><a href="topic5.html">5. Распространение колебаний в упругой среде. 
+            Продольные и поперечные волны</a></li>
+        <li><a href="topic6.html">6. Звуковые волны</a></li>
+    </ul>
+
+    <h2>Глава 2. Электромагнитные колебания и волны</h2>
+    <ul class="topic-list">
+        <li><a href="topic5.html">7. Колебательный контур. Свободные электромагнитные 
+            колебания в контуре. Формула Томсона. Превращения энергии в колебательном 
+            контуре</a></li>
+    </ul>
+
+    <div class="extra-links">
+        <a href="index.html">Главная</a>
+        <a href="definitions.html">Все определения</a>
+        <a href="formulas.html">Все формулы</a>
+    </div>
+</aside>
+
+<main>
+  <header>
+    <h1>Все формулы</h1>
+    <p>Физика 11 класс</p>
+  </header>
+
+  <div class="controls">
+    <input type="text" id="searchInput" placeholder="Поиск по формулам...">
+    <button id="toggleBtn">Раскрыть все</button>
+  </div>
+
+  <section id="definitions">
+
+    <h2 id="fluctuations">Глава 1. Механические колебания и волны</h2>
+
+    <h3 id="harmonic_fluctuations">1. Колебательное движение. Гармонические колебания</h3>
+
+    <div class="definition">
+      <div class="term">Период колебаний</div>
+      <div class="description">
+        \[
+        T = \frac{t}{N}
+        \]
+        <p>\( T \) — период (с)</p>
+    </div>
+    </div>
+
+    <div class="definition">
+      <div class="term">Частота колебаний</div>
+      <div class="description">
+        \[
+        \nu = \frac{N}{t}
+        \]
+        \[
+        \nu = \frac{1}{T}
+        \]
+        <p>
+          \( \nu \) — частота,<br>
+          \( N \) — число колебаний,<br>
+          \( t \) — время,<br>
+          \( T \) — период.
+        </p>
+      </div>
+    </div>
+
+    <div class="definition">
+      <div class="term">Циклическая частота</div>
+      <div class="description">
+        \[
+        \omega = 2 \pi \nu = \frac{2 \pi}{T}
+        \]
+        <p>где \( ω \) — циклическая частота (рад/с),</p> 
+        <p>\( ν \) — частота,</p> 
+        <p>\( T \) — период</p>
+      </div>
+    </div>
+
+    <div class="definition">
+      <div class="term">Гармонические колебания</div>
+      <div class="description">
+        \[
+      x(t) = A \cos(\omega t + \varphi) = A \sin(\omega t + \varphi + \frac{\pi}{2})
+      \]
+      <p>где \( x(t)\) — смещение,</p> 
+        <p>\( A \) — амплитуда,</p> 
+        <p>\( ω \) — циклическая частота,</p> 
+        <p>\( φ \) — начальная фаза</p>
+      </div>
+    </div>
+
+
+    <h3 id="pendulum">2. Пружинный и математический маятники</h3>
+
+    <div class="definition">
+      <div class="term">Уравнение гармонических колебаний пружинного маятника</div>
+      <div class="description">
+        \[
+        a_\text{x} + \frac{k}{m} x = 0,
+        \]
+      <p>где \( k\) — жёсткость пружины, </p>
+      <p>\( m\) — масса, </p>
+      <p>\( A\) — амплитуда, </p>
+      <p>\( φ\) — начальная фаза</p>
+      </div>
+    </div>
+
+    <div class="definition">
+      <div class="term">Период пружинного маятник</div>
+      <div class="description">
+        \[
+        T = 2 \pi \sqrt{\frac{m}{k}}, \quad
+        \]
+      <p>где \( k\) — жёсткость пружины, </p>
+      <p>\( m\) — масса, </p>
+      <p>\( A\) — амплитуда, </p>
+      <p>\( φ\) — начальная фаза</p>
+      </div>
+    </div>
+
+    <div class="definition">
+      <div class="term">Циклическая частота пружинного маятника</div>
+      <div class="description">
+        \[
+        \omega = \sqrt{\frac{k}{m}}
+        \]
+      <p>где \( k\) — жёсткость пружины, </p>
+      <p>\( m\) — масса, </p>
+      <p>\( A\) — амплитуда, </p>
+      <p>\( φ\) — начальная фаза</p>
+      </div>
+    </div>
+
+    <div class="definition">
+      <div class="term">Колебания математического маятника</div>
+      <div class="description">
+        \[
+        a_\text{x} + \frac{g}{l} x = 0,
+        \]
+        <p>где \( l\) — длина нити, </p>
+        <p>\( g\) — ускорение свободного падения, </p>
+        <p>\( x\) — отклонение маятника от положения равновесия </p>
+        <p>\( a_\text{x}\) — проекция ускорения маятника на ось OX</p>
+      </div>
+    </div>
+
+      <div class="definition">
+      <div class="term">Формула Гюйгенса (период математического маятника)</div>
+      <div class="description">
+        \[
+        T = 2 \pi \sqrt{\frac{l}{g}},
+        \]
+        <p>где \( l\) — длина нити, </p>
+        <p>\( g\) — ускорение свободного падения, </p>
+      </div>
+    </div>
+
+    <div class="definition">
+      <div class="term">Циклическая частота математического матяника</div>
+      <div class="description">
+        \[
+        \omega = \sqrt{\frac{l}{g}}
+        \]
+      <p>где \( l\) — длина нити, </p>
+      <p>\( g\) — ускорение свободного падения, </p>
+      </div>
+    </div>
+    
+    <h3 id="energy_transitions">3. Превращения энергии при гармонических колебаниях</h3>
+
+    <div class="definition">
+      <div class="term">Максимальная потенциальная энергия</div>
+      <div class="description">
+        \[
+        E_{\text{пот, max}} = \frac{1}{2} k A^2
+        \]
+        <p>где \( k\) — жёсткость пружины, </p>
+        <p>\( A\) — амплитуда колебаний</p>
+      </div>
+    </div>
+
+    <div class="definition">
+      <div class="term">Максимальная кинетическая энергия</div>
+      <div class="description">
+        \[
+        E_{\text{кин, max}} = \frac{1}{2} k A^2
+        \]
+        <p>где \( k\) — жёсткость пружины, </p>
+        <p>\( A\) — амплитуда колебаний</p>
+      </div>
+    </div>
+
+    <div class="definition">
+      <div class="term">Полная энергия</div>
+      <div class="description">
+        \[
+        E = E_{\text{кин}} + E_{\text{пот}} = \frac{1}{2} k A^2
+        \]
+        <p>где \( E\) — полная энергия колебаний, </p>
+        <p>\( k\) — жёсткость пружины, </p>
+        <p>\( A\) — амплитуда</p>
+      </div>
+    </div>
+    
+    <h3 id="forced_oscillations">4. Свободные и вынужденные колебания. Резонанс</h3>
+    
+    <h3 id="wave_propagation">5. Распространение колебаний в упругой среде. 
+            Продольные и поперечные волны</h3>
+
+    <div class="definition">
+    <div class="term">Длина волны</div>
+    <div class="description">
+      \[
+      \lambda = \frac{v}{\nu} = vT
+      \]
+      <p>где \( λ\) — длина волны, </p>
+      <p>\( v\) — скорость распространения волны, </p>
+      <p>\( ν\) — частота колебаний, </p>
+      <p>\( T\) — период колебаний</p>
+    </div>
+  </div>
+
+  <div class="definition">
+    <div class="term">Скорость распространения волны</div>
+    <div class="description">
+      \[
+      v = \lambda \nu = \frac{\lambda}{T}
+      \]
+      <p>где \( v\) — скорость распространения волны, </p>
+      <p>\( λ\) — длина волны, </p>
+      <p>\( ν\) — частота, </p>
+      <p>\( T\) — период</p>
+    </div>
+  </div>
+    
+    <h3 id="sound_waves">6. Звуковые волны</h3>
+
+    <h2 id="waves">Глава 2. Электромагнитные колебания и волны</h2>
+    
+    <h3 id="oscillatory_circuit">7. Колебательный контур. Свободные электромагнитные 
+            колебания в контуре. Формула Томсона. Превращения энергии в колебательном 
+            контуре</h3>
+
+    
+
+  </section>
+
+  <footer>
+    © 2026 Учебное пособие по физике
+  </footer>
+
+</main>
+
+<script src="definitions.js"></script>
+</body>
+</html>

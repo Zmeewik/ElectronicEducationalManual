@@ -154,11 +154,11 @@ footer {
   margin-bottom: 12px;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
   transition: 0.3s;
 }
 
 .term {
+  overflow: visible;
   padding: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -170,16 +170,14 @@ footer {
 }
 
 .description {
-  max-height: 0;
-  overflow: hidden;
-  padding: 0 14px;
+  display: none;
+  padding: 14px;
   background: #f8faff;
-  transition: all 0.3s ease;
+  overflow: visible;
 }
 
 .description.open {
-  max-height: 300px;
-  padding: 14px;
+  display: block;
 }
 
 h2 {
@@ -187,6 +185,22 @@ h2 {
   margin-bottom: 15px;
   border-bottom: 2px solid #1f3c88;
   padding-bottom: 5px;
+}
+
+/* Формулы */
+.formulas {
+  max-width: 900px;
+  margin: auto;
+  font-family: "Times New Roman", serif;
+  line-height: 1.6;
+}
+
+.formula-block {
+  background: #f9f9f9;
+  padding: 20px;
+  margin: 20px 0;
+  border-left: 5px solid #2c3e50;
+  border-radius: 8px;
 }
 
 /* Адаптивность */
