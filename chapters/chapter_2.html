@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Глава 1 — Механические колебания и волны · Учебное пособие</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", "Georgia", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2f7, #d9e4f5);
+            color: #2c3e50;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .top-border {
+            background-color: #f5c542;
+            height: 8px;
+            width: 100%;
+            flex-shrink: 0;
+        }
+
+        .bottom-border {
+            background-color: #f5c542;
+            height: 8px;
+            width: 100%;
+            flex-shrink: 0;
+        }
+
+        .main-layout {
+            display: flex;
+            flex: 1 0 auto;
+            width: 100%;
+        }
+
+        aside {
+            width: 300px;
+            background: #1f3c88;
+            color: white;
+            padding: 25px;
+            flex-shrink: 0;
+        }
+
+        aside h2 {
+            margin-bottom: 15px;
+            font-size: 20px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 5px;
+        }
+
+        .topic-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .topic-list li {
+            margin: 8px 0;
+        }
+
+        .topic-list a {
+            text-decoration: none;
+            color: #dbe9ff;
+            padding: 6px 10px;
+            display: block;
+            border-radius: 6px;
+        }
+
+        .topic-list a:hover {
+            background-color: #4a69bd;
+            color: white;
+        }
+
+        .extra-links a {
+            display: block;
+            margin-top: 10px;
+            padding: 8px 10px;
+            background: #4a69bd;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        main {
+            flex: 1;
+            padding: 30px 40px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .poem-elegant {
+            text-align: center;
+            margin: 1rem 0 2.5rem 0;
+            padding: 1rem 0;
+        }
+
+        .poem-elegant::before,
+        .poem-elegant::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #f5c542, transparent);
+            margin: 0.8rem auto;
+        }
+
+        .poem-elegant .poem-lines {
+            font-family: "Georgia", serif;
+            font-size: 1.15rem;
+            line-height: 2;
+            color: #3a4a5a;
+            font-style: italic;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .poem-elegant .poem-author {
+            font-size: 1rem;
+            color: #7d6b3a;
+            margin-top: 0.8rem;
+        }
+
+        header h1 {
+            font-size: 32px;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        header p {
+            font-size: 18px;
+            color: #555;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .main-text-content {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            text-align: justify;
+        }
+
+        .main-text-content h3 {
+            font-size: 1.8rem;
+            color: #1f3c88;
+            margin: 1.5rem 0 0.25rem 0;
+        }
+
+        .main-text-content h4 {
+            font-size: 1.3rem;
+            color: #4f4a34;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #f5c542;
+            padding-left: 12px;
+        }
+
+        .main-text-content p {
+            margin-bottom: 1.2rem;
+            text-align: justify;
+        }
+
+        .definition-block {
+            background-color: rgba(245, 197, 66, 0.1);
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border-left: 5px solid #f5c542;
+            margin: 1.5rem 0;
+        }
+
+        .chapter-footer-note {
+            color: #5e5a4a;
+            font-size: 0.9rem;
+            margin: 2rem 0 1rem 0;
+            border-top: 1px dashed #cfb87c;
+            padding-top: 0.8rem;
+            text-align: right;
+            clear: both;
+        }
+
+        .figure-right {
+            float: right;
+            margin: 0 0 20px 30px;
+            width: 300px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            padding: 12px 12px 8px 12px;
+            border: 1px solid #f5c542;
+            clear: right;
+        }
+
+        .figure-right img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .figure-right .caption {
+            font-style: italic;
+            color: #4a4a4a;
+            padding: 10px 0 5px 0;
+            text-align: center;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            width: 100%;
+        }
+
+        .figure-right .caption strong {
+            color: #1f3c88;
+        }
+
+        .formula {
+            background: white;
+            padding: 10px 25px;
+            border-radius: 12px;
+            border: 2px solid #f5c542;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin: 15px auto;
+            text-align: center;
+            display: table;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .table-container {
+            margin: 2rem 0;
+            overflow-x: auto;
+            clear: both;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        th {
+            background: #1f3c88;
+            color: white;
+            padding: 12px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e7f0;
+            text-align: center;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:nth-child(even) {
+            background: #f8faff;
+        }
+
+        .table-caption {
+            font-style: italic;
+            color: #4a4a4a;
+            padding: 0.8rem 0;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .audio-player-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: linear-gradient(145deg, #ffffff, #f5f9ff);
+            border-radius: 32px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border: 1px solid rgba(245, 197, 66, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .audio-icon {
+            flex: 0 0 auto;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: #1f3c88;
+            border-radius: 60px;
+            padding: 5px;
+            box-shadow: 0 6px 12px rgba(31, 60, 136, 0.3);
+        }
+
+        .audio-icon:hover {
+            transform: scale(1.08);
+            background: #f5c542;
+        }
+
+        .audio-icon:hover svg {
+            fill: #1f3c88;
+        }
+
+        .audio-icon svg {
+            width: 80px;
+            height: 80px;
+            display: block;
+            fill: white;
+            transition: fill 0.2s ease;
+        }
+
+        .audio-info {
+            flex: 1 1 250px;
+            font-size: 1.25rem;
+            color: #2c3e50;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .audio-info p {
+            margin: 0.5rem 0;
+        }
+
+        .audio-info .audio-label {
+            font-size: 1.5rem;
+            color: #1f3c88;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .audio-info .audio-description {
+            font-size: 1rem;
+            color: #4a5b6b;
+        }
+
+        .audio-controls {
+            flex: 2 1 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            min-width: 300px;
+        }
+
+        .playback-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .control-btn {
+            background: #f5c542;
+            border: none;
+            border-radius: 40px;
+            padding: 10px 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1f3c88;
+            cursor: pointer;
+            transition: 0.15s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border: 2px solid #1f3c88;
+            white-space: nowrap;
+        }
+
+        .control-btn:hover {
+            background: #1f3c88;
+            color: #f5c542;
+            border-color: #f5c542;
+        }
+
+        .seek-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .seek-row span {
+            font-size: 0.9rem;
+            color: #1f3c88;
+            font-weight: 500;
+            min-width: 45px;
+        }
+
+        .seek-bar {
+            flex: 1;
+            height: 8px;
+            -webkit-appearance: none;
+            background: linear-gradient(90deg, #f5c542 0%, #f5c542 0%, #d9e4f5 0%);
+            border-radius: 10px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .seek-bar::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #1f3c88;
+            border-radius: 50%;
+            border: 2px solid #f5c542;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        .volume-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .volume-icon {
+            width: 24px;
+            height: 24px;
+            fill: #1f3c88;
+            cursor: pointer;
+        }
+
+        .volume-bar {
+            width: 120px;
+            height: 8px;
+            -webkit-appearance: none;
+            background: linear-gradient(90deg, #1f3c88 0%, #1f3c88 100%, #d9e4f5 100%);
+            border-radius: 10px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .volume-bar::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #f5c542;
+            border-radius: 50%;
+            border: 2px solid #1f3c88;
+            cursor: pointer;
+        }
+
+        .time-display {
+            font-family: monospace;
+            font-size: 0.95rem;
+            color: #1f3c88;
+            background: rgba(245, 197, 66, 0.2);
+            padding: 4px 10px;
+            border-radius: 30px;
+            border: 1px solid #f5c542;
+        }
+
+        footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+            clear: both;
+        }
+
+        @media (max-width: 1000px) {
+            .main-layout {
+                flex-direction: column;
+            }
+            aside {
+                width: 100%;
+            }
+            .figure-right {
+                float: none;
+                margin: 20px auto;
+                width: 90%;
+                max-width: 300px;
+                clear: both;
+            }
+            .audio-player-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            .audio-controls {
+                width: 100%;
+            }
+            .playback-row {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-border"></div>
+
+    <div class="main-layout">
+        <aside>
+            <h2>Глава 1. Механические колебания и волны</h2>
+            <ul class="topic-list">
+                <li><a href="chapter_1.html">1. Колебательное движение. Гармонические колебания</a></li>
+                <li><a href="chapter_2.html">2. Пружинный и математический маятники</a></li>
+                <li><a href="topic3.html">3. Превращения энергии при гармонических колебаниях</a></li>
+                <li><a href="topic4.html">4. Свободные и вынужденные колебания. Резонанс</a></li>
+                <li><a href="topic5.html">5. Распространение колебаний в упругой среде. Продольные и поперечные волны</a></li>
+                <li><a href="topic6.html">6. Звуковые волны</a></li>
+            </ul>
+
+            <h2>Глава 2. Электромагнитные колебания и волны</h2>
+            <ul class="topic-list">
+                <li><a href="topic5.html">7. Колебательный контур. Свободные электромагнитные колебания в контуре. Формула Томсона. Превращения энергии в колебательном контуре</a></li>
+            </ul>
+
+            <div class="extra-links">
+                <a href="definitions.html">Все определения</a>
+                <a href="formulas.html">Все формулы</a>
+            </div>
+        </aside>
+
+        <main>
+            <div class="main-text-content">
+                <h3>§ 2. Пружинный и математический маятники</h3>
+
+                <p>Груз, подвешенный на нити, колеблющийся в поле тяжести Земли, а также груз, прикрепленный к пружине, — примеры наиболее простых механических колебательных систем. Рассмотрим физические процессы, происходящие в таких системах.</p>
+                <p>Совокупность нескольких тел образуют механическую систему. Тела, не входящие в систему, называются внешними.</p>
+                <p>Второй закон Ньютона (основной закон динамики): ускорение, приобретаемое телом под действием приложенных к нему сил, обратно пропорционально массе тела, направлено по результирующей этих сил и прямо пропорционально ее модулю:</p>
+                <div class="formula">
+                    m <span style="font-weight: bold;">a</span> = <span style="font-weight: bold;">F</span><sub>1</sub> + <span style="font-weight: bold;">F</span><sub>2</sub> + ... + <span style="font-weight: bold;">F</span><sub>N</sub>
+                </div>
+                <p>Закон Гука: при упругих деформациях сжатия и растяжения модуль силы упругости прямо пропорционален модулю изменения длины тела:</p>
+                <div class="formula">
+                    F<sub>упр</sub> = k |l - l<sub>0</sub>| = k |Δl|,
+                </div>
+                <p>где k — жесткость тела, l<sub>0</sub> — длина недеформированного тела, l — длина деформированного тела. Направление силы упругости всегда противоположно направлению смещения при деформации.</p>
+
+                <h4>Какие условия необходимы для возникновения колебаний?</h4>
+                <p>Результаты опытов показывают, что для возникновения и существования механических колебаний тело изначально необходимо привести в движение. Это можно сделать, отклоняя его от положения равновесия или придавая ему начальную скорость посредством толчка. Этим отклонением или толчком определяется амплитуда колебаний. Кроме того, при выведении тела из положения равновесия в колеблющейся системе должна возникать результирующая сила, стремящаяся возвратить тело в положение равновесия.</p>
+
+                <p>Простейшая колебательная система, состоящая из тела с прикрепленной к нему пружиной, связывающей тело и опору, называется пружинным маятником. Пружина может располагаться как горизонтально (горизонтальный пружинный маятник), так и вертикально (вертикальный пружинный маятник).</p>
+
+                <p>Рассмотрим колебания горизонтального пружинного маятника.</p>
+
+                <div class="figure-right">
+                    <img src="chapters_img/2.2.png" alt="Горизонтальный пружинный маятник">
+                    <div class="caption">
+                        <strong>Рис. 13.</strong> Горизонтальный пружинный маятник: а — положение равновесия; б — силы, действующие на него
+                    </div>
+                </div>
+
+                <p>Пусть тело массой m, лежащее на гладкой горизонтальной поверхности, прикреплено к свободному концу невесомой пружины жесткостью k (рис. 13, а). Второй конец пружины прикреплен к неподвижной опоре.</p>
+                <p>Выведем тело из положения равновесия, сместив его, например, вправо на расстояние x (см. рис. 13, б). При этом согласно закону Гука возникнет сила упругости <span style="font-weight: bold;">F<sub>упр</sub></span>, приложенная к телу и направленная влево.</p>
+                <p>Согласно второму закону Ньютона будет выполняться равенство:</p>
+                <div class="formula">
+                    m <span style="font-weight: bold;">a</span> = <span style="font-weight: bold;">F<sub>упр</sub></span> + m<span style="font-weight: bold;">g</span> + <span style="font-weight: bold;">N</span>. (1)
+                </div>
+                <p>С учетом закона Гука из (1) получаем уравнение для проекций величин на ось Ox (см. рис. 13, б):</p>
+                <div class="formula">
+                    ma<sub>x</sub> = -kx. (2)
+                </div>
+                <p>Согласно (2) ускорение тела массой m пропорционально действующей силе и направлено к положению равновесия. При этом возникают колебания тела. Каждые полпериода направление движения меняется на противоположное. Смещение груза происходит то вправо, то влево относительно положения равновесия, т. е. оно меняет знак. Следовательно, и сила согласно (2) тоже меняет знак.</p>
+                
+                <p>Перепишем полученное соотношение (2) в виде:</p>
+                <div class="formula">
+                    a<sub>x</sub> + (k/m) x = 0. (3)
+                </div>
+                <p>Уравнение (3) называется уравнением гармонических колебаний пружинного маятника.</p>
+                <p>Следовательно, необходимым условием возникновения гармонических колебаний является действие возвращающей силы, направленной к положению равновесия и прямо пропорциональной смещению тела от положения равновесия. Эта возвращающая сила всегда направлена к положению равновесия, о чем «говорит» минус в уравнении (2).</p>
+                <p>В положении равновесия возвращающая сила равна нулю (F = 0), так как x = 0. Поэтому если в этом положении колеблющееся тело остановить, то колебания исчезнут.</p>
+                <p>Расчеты показывают, а результаты экспериментов подтверждают, что при описанных условиях тело будет совершать колебания с периодом:</p>
+                <div class="formula">
+                    T = 2π √(m/k). (4)
+                </div>
+                <p>С учетом того, что период связан с циклической частотой соотношением T = 2π/ω, находим:</p>
+                <div class="formula">
+                    ω = √(k/m). (5)
+                </div>
+                <p>Из формул (4) и (5) следует, что период и частота гармонических колебаний пружинного маятника определяются массой груза m и жесткостью пружины k и не зависят от амплитуды его колебаний.</p>
+
+                <div class="figure-right">
+                    <img src="chapters_img/2.3.png" alt="Вертикальный пружинный маятник">
+                    <div class="caption">
+                        <strong>Рис. 14.</strong> Вертикальный пружинный маятник
+                    </div>
+                </div>
+
+                <p>Отметим, что период и циклическая частота колебаний вертикального пружинного маятника (рис. 14) также определяются по формулам (4) и (5).</p>
+                <p>Одной из наиболее распространенных колебательных систем является математический маятник. Математическим маятником называется небольшое тело массой m, подвешенное на невесомой нерастяжимой нити длиной l, находящееся в поле силы тяжести (рис. 15).</p>
+
+                <div class="figure-right">
+                    <img src="chapters_img/2.4.png" alt="Математический маятник">
+                    <div class="caption">
+                        <strong>Рис. 15.</strong> Математический маятник
+                    </div>
+                </div>
+
+                <div class="figure-right">
+                    <img src="chapters_img/2.5.png" alt="Колебания математического маятника">
+                    <div class="caption">
+                        <strong>Рис. 16.</strong> Отклонение математического маятника от положения равновесия
+                    </div>
+                </div>
+
+                <p>Рассмотрим колебания математического маятника.</p>
+                <p>Отклонение маятника от положения равновесия будем характеризовать углом α (рис. 16), который нить образует с вертикалью. После отклонения маятника от положения равновесия на него действуют две силы: направленная вертикально вниз сила тяжести m<span style="font-weight: bold;">g</span> и направленная вдоль нити сила упругости <span style="font-weight: bold;">F<sub>упр</sub></span>. Под действием этих сил тело движется ускоренно к положению равновесия (точка B). Пройдя точку B, тело продолжает двигаться, но его скорость постепенно уменьшается, обращаясь в нуль в точке, симметричной точке А относительно вертикали. После этого оно начинает двигаться обратно к точке B.</p>
+                <p>Согласно второму закону Ньютона для движения маятника можем записать:</p>
+                <div class="formula">
+                    m<span style="font-weight: bold;">g</span> + <span style="font-weight: bold;">F<sub>упр</sub></span> = m<span style="font-weight: bold;">a</span>. (6)
+                </div>
+                <p>В проекциях на выбранные оси координат Ox и Oy (см. рис. 16) получаем:</p>
+                <div class="formula">
+                    -F<sub>упр</sub> sin α = ma<sub>x</sub>, (7)
+                </div>
+                <div class="formula">
+                    -mg + F<sub>упр</sub> cos α = ma<sub>y</sub>. (8)
+                </div>
+                <p>Поскольку при малых углах отклонения длина дуги АВ ≈ х, то из ΔAOD находим:</p>
+                <div class="formula">
+                    sin α = AC/AD = x/l,
+                </div>
+                <p>где х — отклонение маятника от положения равновесия, l — длина маятника.</p>
+                <p>Подставляя выражение для синуса в (7), получим:</p>
+                <div class="formula">
+                    -F<sub>упр</sub> (x/l) = ma<sub>x</sub>. (9)
+                </div>
+                <p>Таким образом, силой, возвращающей маятник к устойчивому положению равновесия при колебаниях, является сила упругости его нити и силы тяжести.</p>
+                
+                <p>При малых углах отклонения маятника проекция вектора ускорения a<sub>y</sub> ≈ 0 и ей можно пренебречь, а cos α ≈ 1, тогда из уравнения (8) следует F<sub>упр</sub> ≈ mg. Следовательно, уравнение движения маятника вдоль оси Ox запишется в виде:</p>
+                <div class="formula">
+                    ma<sub>x</sub> = - (mg/l) x.
+                </div>
+                <p>где a<sub>x</sub> — проекция ускорения, сообщаемого грузу маятника силой упругости нити.</p>
+                <p>Откуда получаем уравнение колебаний математического маятника:</p>
+                <div class="formula">
+                    a<sub>x</sub> + (g/l) x = 0. (10)
+                </div>
+                <p>Сравнивая соотношения (10), (3) и (5), легко получить формулу для циклической частоты математического маятника в поле тяжести Земли:</p>
+                <div class="formula">
+                    ω = √(g/l). (11)
+                </div>
+                <p>Период малых колебаний математического маятника в поле тяжести Земли определяется по формуле Гюйгенса:</p>
+                <div class="formula">
+                    T = 2π √(l/g). (12)
+                </div>
+                <p>Используя соотношения (5) и (11), уравнение колебаний пружинного маятника a<sub>x</sub> + (k/m) x = 0 и математического маятника a<sub>x</sub> + (g/l) x = 0 можно записать в одинаковом виде:</p>
+                <div class="formula">
+                    a<sub>x</sub>(t) + ω<sup>2</sup> x(t) = 0. (13)
+                </div>
+                <p>Таким образом, зависимости координат от времени x(t), описываемые уравнениями (5) и (6) из § 1, удовлетворяют уравнению (13), которое называется уравнением гармонических колебаний.</p>
+                <p>Как видно из формул (11), (12), период и циклическая частота малых колебаний математического маятника не зависят от массы маятника и амплитуды его колебаний, а определяются только его длиной и ускорением свободного падения.</p>
+
+                <div style="clear: both;"></div>
+
+                <!-- Аудиоплеер с ползунками громкости и перемотки -->
+                <div class="audio-player-section">
+                    <div class="audio-icon" id="speakerIcon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M3 9v6h4l5 5V4L7 9H3z M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                        </svg>
+                    </div>
+                    <div class="audio-info">
+                        <div class="audio-label">Звуковой ряд к параграфу</div>
+                        <div class="audio-description">Лекция «Пружинный и математический маятники» (аудиозапись)</div>
+                        <p>Нажмите на иконку или кнопку для прослушивания.</p>
+                    </div>
+                    <div class="audio-controls">
+                        <div class="playback-row">
+                            <button class="control-btn" id="playPauseBtn">▶ Воспроизвести</button>
+                            <span class="time-display" id="timeDisplay">00:00 / 00:00</span>
+                        </div>
+                        
+                        <div class="seek-row">
+                            <span>00:00</span>
+                            <input type="range" class="seek-bar" id="seekBar" value="0" min="0" max="100" step="0.1">
+                            <span id="durationDisplay">00:00</span>
+                        </div>
+                        
+                        <div class="volume-row">
+                            <svg class="volume-icon" id="volumeIcon" viewBox="0 0 24 24">
+                                <path d="M3 9v6h4l5 5V4L7 9H3z M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                            </svg>
+                            <input type="range" class="volume-bar" id="volumeBar" min="0" max="1" step="0.01" value="1">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Аудиоэлемент (скрыт) -->
+                <audio id="audioPlayer" preload="metadata">
+                    <source src="audio/2.1.mp3" type="audio/mpeg">
+                    Ваш браузер не поддерживает аудиоэлемент.
+                </audio>
+
+                <div class="chapter-footer-note">
+                    Глава 1. Механические колебания и волны
+                </div>
+            </div>
+
+            <footer>
+                © 2026 Учебное пособие по физике | Электронная версия
+            </footer>
+        </main>
+    </div>
+
+    <div class="bottom-border"></div>
+
+    <script>
+        (function() {
+            const audio = document.getElementById('audioPlayer');
+            const speakerIcon = document.getElementById('speakerIcon');
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            const seekBar = document.getElementById('seekBar');
+            const volumeBar = document.getElementById('volumeBar');
+            const volumeIcon = document.getElementById('volumeIcon');
+            const timeDisplay = document.getElementById('timeDisplay');
+            const durationDisplay = document.getElementById('durationDisplay');
+
+            // Форматирование времени (секунды -> MM:SS)
+            function formatTime(seconds) {
+                if (isNaN(seconds) || seconds === Infinity) return '00:00';
+                const mins = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+
+            // Обновление кнопки воспроизведения
+            function updatePlayButton() {
+                if (audio.paused) {
+                    playPauseBtn.innerHTML = '▶ Воспроизвести';
+                } else {
+                    playPauseBtn.innerHTML = '⏸ Пауза';
+                }
+            }
+
+            // Обновление ползунка перемотки и времени
+            function updateSeekBar() {
+                if (!isNaN(audio.duration) && audio.duration > 0) {
+                    const value = (audio.currentTime / audio.duration) * 100;
+                    seekBar.value = value;
+                    
+                    // Обновляем фон ползунка (градиент)
+                    seekBar.style.background = `linear-gradient(90deg, #f5c542 ${value}%, #d9e4f5 ${value}%)`;
+                    
+                    timeDisplay.textContent = formatTime(audio.currentTime);
+                }
+            }
+
+            // Обновление отображения длительности
+            function updateDuration() {
+                if (!isNaN(audio.duration) && audio.duration > 0) {
+                    durationDisplay.textContent = formatTime(audio.duration);
+                    seekBar.max = 100;
+                } else {
+                    durationDisplay.textContent = '00:00';
+                }
+            }
+
+            // Обновление ползунка громкости и иконки
+            function updateVolumeUI() {
+                volumeBar.value = audio.volume;
+                const volumePercent = audio.volume * 100;
+                volumeBar.style.background = `linear-gradient(90deg, #1f3c88 ${volumePercent}%, #d9e4f5 ${volumePercent}%)`;
+                
+                // Меняем иконку в зависимости от громкости
+                if (audio.volume === 0 || audio.muted) {
+                    volumeIcon.innerHTML = '<path d="M3 9v6h4l5 5V4L7 9H3z M16.5 12L19 14.5 21.5 12 23 13.5 20.5 16 23 18.5 21.5 20 19 17.5 16.5 20 15 18.5 17.5 16 15 13.5 16.5 12z"/>';
+                } else {
+                    volumeIcon.innerHTML = '<path d="M3 9v6h4l5 5V4L7 9H3z M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>';
+                }
+            }
+
+            // Переключение воспроизведения
+            function togglePlay() {
+                if (audio.paused) {
+                    audio.play().catch(e => console.log('Воспроизведение заблокировано:', e));
+                } else {
+                    audio.pause();
+                }
+            }
+
+            // Инициализация при загрузке метаданных
+            audio.addEventListener('loadedmetadata', function() {
+                updateDuration();
+                seekBar.max = 100;
+                timeDisplay.textContent = formatTime(audio.currentTime);
+            });
+
+            // Обновление времени при воспроизведении
+            audio.addEventListener('timeupdate', updateSeekBar);
+
+            // При окончании
+            audio.addEventListener('ended', function() {
+                playPauseBtn.innerHTML = '▶ Воспроизвести';
+                audio.currentTime = 0;
+                updateSeekBar();
+            });
+
+            // События паузы/воспроизведения
+            audio.addEventListener('play', updatePlayButton);
+            audio.addEventListener('pause', updatePlayButton);
+
+            // Клик по иконке
+            speakerIcon.addEventListener('click', togglePlay);
+            
+            // Клик по кнопке
+            playPauseBtn.addEventListener('click', togglePlay);
+
+            // Перемотка
+            seekBar.addEventListener('input', function() {
+                if (audio.duration) {
+                    audio.currentTime = (seekBar.value / 100) * audio.duration;
+                }
+                seekBar.style.background = `linear-gradient(90deg, #f5c542 ${seekBar.value}%, #d9e4f5 ${seekBar.value}%)`;
+            });
+
+            // Громкость
+            volumeBar.addEventListener('input', function() {
+                audio.volume = volumeBar.value;
+                audio.muted = false;
+                updateVolumeUI();
+            });
+
+            // Отключение звука по клику на иконку громкости
+            volumeIcon.addEventListener('click', function() {
+                audio.muted = !audio.muted;
+                if (audio.muted) {
+                    volumeBar.value = 0;
+                } else {
+                    volumeBar.value = audio.volume;
+                }
+                updateVolumeUI();
+            });
+
+            // Начальная установка UI
+            updateVolumeUI();
+            updatePlayButton();
+            if (audio.readyState > 0) {
+                updateDuration();
+                updateSeekBar();
+            }
+        })();
+    </script>
+
+</body>
+</html>
