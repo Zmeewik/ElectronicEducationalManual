@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Физика · Колебания: тест 10 вопросов (подсказки)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Georgia', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #eef2f7 0%, #d9e4f5 100%);
+            color: #1e2b3c;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-border, .bottom-border {
+            background-color: #f5b81b;
+            height: 8px;
+            width: 100%;
+            flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .main-container {
+            flex: 1;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .poem-elegant {
+            text-align: center;
+            margin: 10px 0 25px 0;
+            padding: 0.5rem 0;
+        }
+        .poem-elegant::before,
+        .poem-elegant::after {
+            content: '';
+            display: block;
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #f5b81b, transparent);
+            margin: 0.5rem auto;
+        }
+        .poem-lines {
+            font-family: Georgia, serif;
+            font-size: 1.2rem;
+            color: #2f4858;
+            font-style: italic;
+        }
+        .poem-author {
+            color: #7d6b3a;
+            margin-top: 5px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #13294b;
+            text-align: center;
+            margin-bottom: 0.2rem;
+        }
+        header p {
+            text-align: center;
+            color: #3d5a73;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .interactive-section {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+            border-radius: 40px;
+            padding: 30px 35px;
+            margin: 25px 0;
+            box-shadow: 0 20px 35px rgba(0, 20, 40, 0.2);
+            border: 1px solid rgba(245, 184, 27, 0.4);
+        }
+
+        .interactive-section h2 {
+            font-size: 2.2rem;
+            font-weight: 400;
+            color: #1f3c88;
+            border-left: 8px solid #f5b81b;
+            padding-left: 25px;
+            margin-bottom: 30px;
+            letter-spacing: -0.5px;
+        }
+
+        /* ---------- ЗАДАНИЕ 1: соедини блоки ---------- */
+        .match-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 35px;
+            justify-content: center;
+        }
+        .match-column {
+            flex: 1 1 280px;
+            background: #f8fbff;
+            border-radius: 32px;
+            padding: 25px 20px;
+            box-shadow: inset 0 2px 8px #b5c6dd, 0 10px 15px rgba(0,0,0,0.05);
+        }
+        .match-column h3 {
+            text-align: center;
+            color: #13294b;
+            font-weight: 500;
+            border-bottom: 2px dashed #f5b81b;
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            font-size: 1.6rem;
+        }
+        .drag-item, .drop-zone {
+            background: white;
+            padding: 16px 14px;
+            margin: 15px 0;
+            border-radius: 50px;
+            border: 2px solid #bac9ec;
+            cursor: pointer;
+            transition: 0.1s;
+            text-align: center;
+            font-weight: 500;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.04);
+            user-select: none;
+        }
+        .drag-item {
+            background: #e1ebfc;
+            border-color: #1f3c88;
+            color: #1f3c88;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .drag-item.dragging {
+            opacity: 0.5;
+            transform: scale(0.97);
+        }
+        .drop-zone {
+            background: #f9f3df;
+            border: 2px dashed #f5b81b;
+            color: #2c3e4f;
+        }
+        .drop-zone.matched {
+            background: #c8e6c9;
+            border: 2px solid #2e7d32;
+            color: #1b5e20;
+            font-weight: 600;
+            pointer-events: none;
+        }
+        .drop-zone.matched::after {
+            content: " ✓";
+            font-size: 1.4rem;
+            float: right;
+            margin-right: 8px;
+        }
+        .reset-button {
+            background: #f5b81b;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #13294b;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #b47d10;
+            transition: 0.07s linear;
+            margin: 30px auto 0;
+            display: block;
+            width: fit-content;
+        }
+        .reset-button:active {
+            transform: translateY(6px);
+            box-shadow: none;
+        }
+        .message {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 1.2rem;
+            min-height: 2.5rem;
+            color: #1f3c88;
+            font-weight: 500;
+        }
+
+        /* ---------- ТЕСТ (10 вопросов) ---------- */
+        .test-wrapper {
+            background: rgba(255,255,255,0.5);
+            border-radius: 40px;
+            padding: 25px;
+        }
+        .question-counter {
+            font-size: 1.2rem;
+            color: #13294b;
+            margin-bottom: 15px;
+            background: #f5e7c8;
+            display: inline-block;
+            padding: 6px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+        }
+        .question-block {
+            background: #ffffffde;
+            border-radius: 32px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border-left: 12px solid #f5b81b;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+        }
+        .question-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #0f2862;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+        .answers {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .answer-option {
+            background: #f3f7ff;
+            border-radius: 60px;
+            padding: 16px 28px;
+            border: 2px solid #9bb2d9;
+            cursor: pointer;
+            transition: 0.1s;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+        }
+        .answer-option:hover {
+            background: #dae6ff;
+            border-color: #f5b81b;
+        }
+        .answer-option.correct {
+            background: #b9f6ca;
+            border-color: #00a86b;
+            pointer-events: none;
+        }
+        .answer-option.incorrect {
+            background: #ffe0e0;
+            border-color: #c62828;
+            pointer-events: none;
+        }
+        .test-feedback {
+            margin: 20px 0;
+            padding: 20px 25px;
+            border-radius: 28px;
+            background: #fff3d6;
+            font-size: 1.2rem;
+            border-left: 8px solid #f5b81b;
+        }
+        .theory-reference {
+            background: #fcf8e8;
+            padding: 22px 25px;
+            border-radius: 30px;
+            border: 2px solid #f5b81b;
+            margin: 20px 0 10px;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .bold-ref {
+            font-weight: 700;
+            color: #13294b;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0 10px;
+        }
+        .secondary-btn {
+            background: #e0e7f5;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #13294b;
+            cursor: pointer;
+            border: 2px solid #9bb2d9;
+            transition: 0.1s;
+        }
+        .secondary-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #cfd9e9;
+            border-color: #a0aec0;
+        }
+        .secondary-btn:hover:not(:disabled) {
+            background: #cddcff;
+            border-color: #f5b81b;
+        }
+        .footnote {
+            text-align: center;
+            margin: 25px 0 5px;
+            color: #4f5b66;
+        }
+    </style>
+</head>
+<body>
+<div class="top-border"></div>
+<div class="main-container">
+    <div class="poem-elegant">
+        <div class="poem-lines">Часы не свершили урока,<br>А маятник точно уснул...</div>
+        <div class="poem-author">Иннокентий Анненский</div>
+    </div>
+    <header>
+        <h1>ФИЗИКА · МЕХАНИЧЕСКИЕ КОЛЕБАНИЯ</h1>
+        <p>Интерактивные задания на основе §1 (гармонические колебания)</p>
+    </header>
+
+    <!-- ЗАДАНИЕ 1: соедини блоки (термины) -->
+    <section class="interactive-section">
+        <h2>🧩 Задание 1. Соедини термин и определение</h2>
+        <div class="match-container" id="matchGame">
+            <div class="match-column" id="termsColumn">
+                <h3>📘 Термины</h3>
+                <div class="drag-item" draggable="true" data-term="period">Период T</div>
+                <div class="drag-item" draggable="true" data-term="amplitude">Амплитуда A</div>
+                <div class="drag-item" draggable="true" data-term="frequency">Частота ν</div>
+                <div class="drag-item" draggable="true" data-term="cyclic">Циклическая частота ω</div>
+                <div class="drag-item" draggable="true" data-term="phase">Начальная фаза φ₀</div>
+            </div>
+            <div class="match-column" id="descColumn">
+                <h3>📝 Определения</h3>
+                <div class="drop-zone" data-accept="period">время одного полного колебания</div>
+                <div class="drop-zone" data-accept="amplitude">макс. отклонение от равновесия</div>
+                <div class="drop-zone" data-accept="frequency">число колебаний за 1 с (величина, обратная периоду)</div>
+                <div class="drop-zone" data-accept="cyclic">величина ω = 2π/T (2πν)</div>
+                <div class="drop-zone" data-accept="phase">фаза в момент t = 0 (φ₀)</div>
+            </div>
+        </div>
+        <button class="reset-button" id="resetMatch">⟲ Начать сначала</button>
+        <div class="message" id="matchMessage">Перетащи термин на подходящее определение</div>
+    </section>
+
+    <!-- ЗАДАНИЕ 2: тест с 10 вопросами и ПОДСКАЗКАМИ (не прямыми ответами) -->
+    <section class="interactive-section">
+        <h2>📋 Задание 2. Тест: 10 вопросов по теме</h2>
+        <div class="test-wrapper" id="quizContainer">
+            <div class="question-counter" id="questionCounter">Вопрос 1 / 10</div>
+
+            <div id="quizQuestions">
+                <!-- 10 вопросов с атрибутами data-hint (подсказка, а не ответ) -->
+                <div class="question-block" id="q1" data-qid="1" data-hint="Вспомни, какая функция (синус или косинус) описывает повторяющееся движение. В учебнике это формула (5) и (6).">
+                    <div class="question-text">1. Какой закон описывает зависимость координаты от времени при гармонических колебаниях?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="true">x = A·cos(ωt + φ₀)</div>
+                        <div class="answer-option" data-correct="false">x = A·t²</div>
+                        <div class="answer-option" data-correct="false">x = v·t</div>
+                        <div class="answer-option" data-correct="false">x = const</div>
+                    </div>
+                </div>
+                <div class="question-block hidden" id="q2" data-qid="2" data-hint="Это минимальное время, через которое движение полностью повторяется. Связано с частотой.">
+                    <div class="question-text">2. Что называется периодом колебаний?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="true">минимальный промежуток времени повторения движения</div>
+                        <div class="answer-option" data-correct="false">число колебаний за 1 с</div>
+                        <div class="answer-option" data-correct="false">максимальное смещение</div>
+                        <div class="answer-option" data-correct="false">величина, обратная частоте, умноженной на 2π</div>
+                    </div>
+                </div>
+                <div class="question-block hidden" id="q3" data-qid="3" data-hint="Эта единица названа в честь физика, изучавшего электромагнитные волны. Равна с⁻¹.">
+                    <div class="question-text">3. Единица измерения частоты колебаний в СИ — ...</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="true">герц (Гц)</div>
+                        <div class="answer-option" data-correct="false">секунда (с)</div>
+                        <div class="answer-option" data-correct="false">метр (м)</div>
+                        <div class="answer-option" data-correct="false">с⁻¹</div>
+                    </div>
+                </div>
+                <div class="question-block hidden" id="q4" data-qid="4" data-hint="Посмотри на формулу (4) в параграфе. Там есть связь ω с T и π.">
+                    <div class="question-text">4. Циклическая частота ω связана с периодом T выражением:</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="true">ω = 2π / T</div>
+                        <div class="answer-option" data-correct="false">ω = 1 / T</div>
+                        <div class="answer-option" data-correct="false">ω = T / 2π</div>
+                        <div class="answer-option" data-correct="false">ω = 2π T</div>
+                    </div>
+                </div>
+                <div class="question-block hidden" id="q5" data-qid="5" data-hint="Это максимальное отклонение от точки равновесия. На графике это высота пика.">
+                    <div class="question-text">5. Амплитуда колебаний — это:</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="true">максимальное отклонение от положения равновесия</div>
+                        <div class="answer-option" data-correct="false">расстояние между крайними точками</div>
+                        <div class="answer-option" data-correct="false">путь, пройденный за период</div>
+                        <div class="answer-option" data-correct="false">величина, равная половине размаха</div>
+                    </div>
+                </div>
+                <div class="question-block hidden" id="q6" data-qid="6" data-hint="Это единица, обратная секунде. Часто говорят 'радиан в секунду', но радиан безразмерен.">
+                    <div class="question-text">6. В каких единицах измеряется циклическая частота ω в СИ?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="true">с⁻¹ (рад/с)</div>
+                        <div class="answer-option" data-correct="false">Гц</div>
+                        <div class="answer-option" data-correct="false">рад</div>
+                        <div class="answer-option" data-correct="false">с</div>
+                    </div>
+                </div>
+                <div class="question-block hidden" id="q7" data-qid="7" data-hint="Период и частота обратны: T = 1/ν. Подставь 50 Гц.">
+                    <div class="question-text">7. Если частота колебаний 50 Гц, то период равен:</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="true">0,02 с</div>
+                        <div class="answer-option" data-correct="false">0,2 с</div>
+                        <div class="answer-option" data-correct="false">2 с</div>
+                        <div class="answer-option" data-correct="false">20 с</div>
+                    </div>
+                </div>
+                <div class="question-block hidden" id="q8" data-qid="8" data-hint="Это значение 'фи' в самый первый момент, до того как началось движение.">
+                    <div class="question-text">8. Что определяет начальная фаза φ₀?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="true">состояние колебательной системы в момент t=0</div>
+                        <div class="answer-option" data-correct="false">максимальную скорость</div>
+                        <div class="answer-option" data-correct="false">частоту колебаний</div>
+                        <div class="answer-option" data-correct="false">энергию колебаний</div>
+                    </div>
+                </div>
+                <div class="question-block hidden" id="q9" data-qid="9" data-hint="Они обратно пропорциональны. Если одна величина растёт, другая убывает.">
+                    <div class="question-text">9. Как изменится период колебаний, если частоту увеличить в 2 раза?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="true">уменьшится в 2 раза</div>
+                        <div class="answer-option" data-correct="false">увеличится в 2 раза</div>
+                        <div class="answer-option" data-correct="false">не изменится</div>
+                        <div class="answer-option" data-correct="false">увеличится в 4 раза</div>
+                    </div>
+                </div>
+                <div class="question-block hidden" id="q10" data-qid="10" data-hint="Какая математическая функция (тригонометрическая) лежит в основе? В определении это сказано прямо.">
+                    <div class="question-text">10. Гармоническими называются колебания, при которых:</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="true">координата меняется по закону синуса/косинуса</div>
+                        <div class="answer-option" data-correct="false">скорость постоянна</div>
+                        <div class="answer-option" data-correct="false">амплитуда линейно растёт</div>
+                        <div class="answer-option" data-correct="false">тело движется по окружности</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-feedback" id="quizFeedback">Выберите вариант ответа.</div>
+            <div id="hintBox" class="theory-reference hidden">
+                <!-- Сюда будет подставляться подсказка из data-hint текущего вопроса -->
+            </div>
+
+            <div class="nav-buttons">
+                <button class="secondary-btn" id="prevBtn" disabled>← Назад</button>
+                <button class="secondary-btn" id="nextBtn" disabled>Вперёд →</button>
+            </div>
+            <button class="reset-button" id="resetQuiz" style="margin: 20px auto 0;">⟲ Сбросить тест</button>
+        </div>
+    </section>
+    <div class="footnote">* При ошибке показывается подсказка (не прямой ответ). «Вперёд» доступен только после верного ответа.</div>
+    <footer style="text-align:center; margin: 25px 0 10px;">© 2026 · Интерактив по физике</footer>
+</div>
+<div class="bottom-border"></div>
+
+<script>
+    (function() {
+        // ---------- 1. drag & drop (соедини блоки) ----------
+        const dragItems = document.querySelectorAll('.drag-item');
+        const dropZones = document.querySelectorAll('.drop-zone');
+        const matchMessage = document.getElementById('matchMessage');
+        let draggedElement = null;
+
+        function resetMatchGame() {
+            dropZones.forEach(zone => {
+                zone.classList.remove('matched');
+                let txt = zone.textContent.replace(' ✓', '');
+                zone.textContent = txt;
+            });
+            matchMessage.textContent = 'Перетащи термин на подходящее определение';
+            matchMessage.style.color = '#1f3c88';
+        }
+
+        dragItems.forEach(item => {
+            item.addEventListener('dragstart', (e) => {
+                draggedElement = item;
+                e.dataTransfer.setData('text/plain', item.dataset.term);
+                item.classList.add('dragging');
+            });
+            item.addEventListener('dragend', () => {
+                item.classList.remove('dragging');
+                draggedElement = null;
+            });
+        });
+
+        dropZones.forEach(zone => {
+            zone.addEventListener('dragover', (e) => e.preventDefault());
+            zone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                if (zone.classList.contains('matched')) {
+                    matchMessage.textContent = '⚠️ Это уже сопоставлено!';
+                    matchMessage.style.color = '#b6570a';
+                    return;
+                }
+                const term = e.dataTransfer.getData('text/plain');
+                if (!term) return;
+                if (term === zone.dataset.accept) {
+                    zone.classList.add('matched');
+                    zone.textContent = zone.textContent + ' ✓';
+                    matchMessage.textContent = '✅ Верно! Продолжай.';
+                    matchMessage.style.color = '#1d7a3c';
+                } else {
+                    matchMessage.textContent = '❌ Неправильно. Попробуй ещё.';
+                    matchMessage.style.color = '#b13e3e';
+                }
+            });
+        });
+
+        document.getElementById('resetMatch').addEventListener('click', resetMatchGame);
+
+        // ---------- 2. ТЕСТ с ПОДСКАЗКАМИ (вместо прямого ответа) ----------
+        const questions = document.querySelectorAll('.question-block');
+        const totalQuestions = questions.length;
+        let currentIndex = 0;
+        const counterDiv = document.getElementById('questionCounter');
+        const feedbackDiv = document.getElementById('quizFeedback');
+        const hintBox = document.getElementById('hintBox');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const resetQuizBtn = document.getElementById('resetQuiz');
+
+        // Показать вопрос по индексу
+        function showQuestion(index) {
+            questions.forEach((q, i) => {
+                if (i === index) q.classList.remove('hidden');
+                else q.classList.add('hidden');
+            });
+            counterDiv.textContent = `Вопрос ${index+1} / ${totalQuestions}`;
+
+            const currentQ = questions[currentIndex];
+            const hasCorrect = currentQ.querySelector('.correct') !== null;
+
+            if (hasCorrect) {
+                nextBtn.disabled = false;
+            } else {
+                nextBtn.disabled = true;
+            }
+
+            updateFeedbackForCurrent();
+            updateNavButtons();
+        }
+
+        function updateFeedbackForCurrent() {
+            const currentQ = questions[currentIndex];
+            if (!currentQ) return;
+            const hasCorrect = currentQ.querySelector('.correct') !== null;
+            const hasIncorrect = currentQ.querySelector('.incorrect') !== null;
+
+            if (hasCorrect) {
+                feedbackDiv.innerHTML = '✅ Правильно! Можно перейти дальше.';
+                hintBox.classList.add('hidden');
+            } else if (hasIncorrect) {
+                feedbackDiv.innerHTML = '❌ Неверно. Вот подсказка:';
+                // Показываем подсказку, специфичную для этого вопроса
+                const hintText = currentQ.dataset.hint || 'Подсказка отсутствует. Перечитай §1.';
+                hintBox.innerHTML = `<div class="theory-reference"><span class="bold-ref">📘 Подсказка:</span> ${hintText}</div>`;
+                hintBox.classList.remove('hidden');
+            } else {
+                feedbackDiv.innerHTML = 'Выберите вариант ответа.';
+                hintBox.classList.add('hidden');
+            }
+        }
+
+        function updateNavButtons() {
+            prevBtn.disabled = (currentIndex === 0);
+        }
+
+        // Обработчик ответа (делегирование)
+        function answerHandler(e) {
+            const target = e.target.closest('.answer-option');
+            if (!target) return;
+            const currentQ = questions[currentIndex];
+            if (!currentQ) return;
+
+            // Если уже отвечали на этот вопрос — ничего не делаем
+            if (currentQ.querySelector('.correct') || currentQ.querySelector('.incorrect')) return;
+
+            const isCorrect = target.dataset.correct === 'true';
+
+            if (isCorrect) {
+                // Верный ответ: подсвечиваем только выбранный вариант зелёным
+                target.classList.add('correct');
+                feedbackDiv.innerHTML = '✅ Правильно! Можно перейти дальше.';
+                hintBox.classList.add('hidden');
+                nextBtn.disabled = false;
+            } else {
+                // Неверный ответ: подсвечиваем красным только выбранный вариант
+                target.classList.add('incorrect');
+                feedbackDiv.innerHTML = '❌ Неверно. Вот подсказка:';
+                // Подставляем подсказку из data-hint текущего вопроса
+                const hintText = currentQ.dataset.hint || 'Подсказка отсутствует. Перечитай §1.';
+                hintBox.innerHTML = `<div class="theory-reference"><span class="bold-ref">📘 Подсказка:</span> ${hintText}</div>`;
+                hintBox.classList.remove('hidden');
+                nextBtn.disabled = true;
+            }
+        }
+
+        // Сброс теста
+        function resetQuiz() {
+            questions.forEach(q => {
+                q.querySelectorAll('.answer-option').forEach(opt => {
+                    opt.classList.remove('correct', 'incorrect');
+                });
+            });
+            currentIndex = 0;
+            showQuestion(0);
+            feedbackDiv.innerHTML = 'Выберите вариант ответа.';
+            hintBox.classList.add('hidden');
+        }
+
+        // Слушаем клики в контейнере вопросов
+        document.getElementById('quizQuestions').addEventListener('click', answerHandler);
+
+        // Навигация
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                showQuestion(currentIndex);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < totalQuestions - 1) {
+                currentIndex++;
+                showQuestion(currentIndex);
+            }
+        });
+
+        resetQuizBtn.addEventListener('click', resetQuiz);
+
+        // Инициализация
+        resetQuiz();
+    })();
+</script>
+</body>
+</html>
