@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Физика · Превращения энергии при колебаниях: тест</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Georgia', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #eef2f7 0%, #d9e4f5 100%);
+            color: #1e2b3c;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-border, .bottom-border {
+            background-color: #f5b81b;
+            height: 8px;
+            width: 100%;
+            flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .main-container {
+            flex: 1;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .poem-elegant {
+            text-align: center;
+            margin: 10px 0 25px 0;
+            padding: 0.5rem 0;
+        }
+        .poem-elegant::before,
+        .poem-elegant::after {
+            content: '';
+            display: block;
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #f5b81b, transparent);
+            margin: 0.5rem auto;
+        }
+        .poem-lines {
+            font-family: Georgia, serif;
+            font-size: 1.2rem;
+            color: #2f4858;
+            font-style: italic;
+        }
+        .poem-author {
+            color: #7d6b3a;
+            margin-top: 5px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: #13294b;
+            text-align: center;
+            margin-bottom: 0.2rem;
+        }
+        header p {
+            text-align: center;
+            color: #3d5a73;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .interactive-section {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+            border-radius: 40px;
+            padding: 30px 35px;
+            margin: 25px 0;
+            box-shadow: 0 20px 35px rgba(0, 20, 40, 0.2);
+            border: 1px solid rgba(245, 184, 27, 0.4);
+        }
+
+        .interactive-section h2 {
+            font-size: 2.2rem;
+            font-weight: 400;
+            color: #1f3c88;
+            border-left: 8px solid #f5b81b;
+            padding-left: 25px;
+            margin-bottom: 30px;
+            letter-spacing: -0.5px;
+        }
+
+        /* ЗАДАНИЕ 1: соедини блоки */
+        .match-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 35px;
+            justify-content: center;
+        }
+        .match-column {
+            flex: 1 1 280px;
+            background: #f8fbff;
+            border-radius: 32px;
+            padding: 25px 20px;
+            box-shadow: inset 0 2px 8px #b5c6dd, 0 10px 15px rgba(0,0,0,0.05);
+        }
+        .match-column h3 {
+            text-align: center;
+            color: #13294b;
+            font-weight: 500;
+            border-bottom: 2px dashed #f5b81b;
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            font-size: 1.6rem;
+        }
+        .drag-item, .drop-zone {
+            background: white;
+            padding: 16px 14px;
+            margin: 15px 0;
+            border-radius: 50px;
+            border: 2px solid #bac9ec;
+            cursor: pointer;
+            transition: 0.1s;
+            text-align: center;
+            font-weight: 500;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.04);
+            user-select: none;
+        }
+        .drag-item {
+            background: #e1ebfc;
+            border-color: #1f3c88;
+            color: #1f3c88;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .drag-item.dragging {
+            opacity: 0.5;
+            transform: scale(0.97);
+        }
+        .drop-zone {
+            background: #f9f3df;
+            border: 2px dashed #f5b81b;
+            color: #2c3e4f;
+        }
+        .drop-zone.matched {
+            background: #c8e6c9;
+            border: 2px solid #2e7d32;
+            color: #1b5e20;
+            font-weight: 600;
+            pointer-events: none;
+        }
+        .drop-zone.matched::after {
+            content: " ✓";
+            font-size: 1.4rem;
+            float: right;
+            margin-right: 8px;
+        }
+        .reset-button {
+            background: #f5b81b;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #13294b;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #b47d10;
+            transition: 0.07s linear;
+            margin: 30px auto 0;
+            display: block;
+            width: fit-content;
+        }
+        .reset-button:active {
+            transform: translateY(6px);
+            box-shadow: none;
+        }
+        .message {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 1.2rem;
+            min-height: 2.5rem;
+            color: #1f3c88;
+            font-weight: 500;
+        }
+
+        /* ТЕСТ */
+        .test-wrapper {
+            background: rgba(255,255,255,0.5);
+            border-radius: 40px;
+            padding: 25px;
+        }
+        .question-counter {
+            font-size: 1.2rem;
+            color: #13294b;
+            margin-bottom: 15px;
+            background: #f5e7c8;
+            display: inline-block;
+            padding: 6px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+        }
+        .question-block {
+            background: #ffffffde;
+            border-radius: 32px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border-left: 12px solid #f5b81b;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+        }
+        .question-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #0f2862;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+        .answers {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .answer-option {
+            background: #f3f7ff;
+            border-radius: 60px;
+            padding: 16px 28px;
+            border: 2px solid #9bb2d9;
+            cursor: pointer;
+            transition: 0.1s;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+        }
+        .answer-option:hover {
+            background: #dae6ff;
+            border-color: #f5b81b;
+        }
+        .answer-option.correct {
+            background: #b9f6ca;
+            border-color: #00a86b;
+            pointer-events: none;
+        }
+        .answer-option.incorrect {
+            background: #ffe0e0;
+            border-color: #c62828;
+            pointer-events: none;
+        }
+        .test-feedback {
+            margin: 20px 0;
+            padding: 20px 25px;
+            border-radius: 28px;
+            background: #fff3d6;
+            font-size: 1.2rem;
+            border-left: 8px solid #f5b81b;
+        }
+        .theory-reference {
+            background: #fcf8e8;
+            padding: 22px 25px;
+            border-radius: 30px;
+            border: 2px solid #f5b81b;
+            margin: 20px 0 10px;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .bold-ref {
+            font-weight: 700;
+            color: #13294b;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0 10px;
+        }
+        .secondary-btn {
+            background: #e0e7f5;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #13294b;
+            cursor: pointer;
+            border: 2px solid #9bb2d9;
+            transition: 0.1s;
+        }
+        .secondary-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #cfd9e9;
+            border-color: #a0aec0;
+        }
+        .secondary-btn:hover:not(:disabled) {
+            background: #cddcff;
+            border-color: #f5b81b;
+        }
+        .footnote {
+            text-align: center;
+            margin: 25px 0 5px;
+            color: #4f5b66;
+        }
+        .extra-links {
+            margin: 20px 0;
+        }
+        .extra-links a {
+            display: inline-block;
+            padding: 10px 25px;
+            background: #1f3c88;
+            color: white;
+            text-decoration: none;
+            border-radius: 40px;
+            margin-right: 15px;
+            transition: all 0.2s;
+            border: 2px solid #f5b81b;
+        }
+        .extra-links a:hover {
+            background: #f5b81b;
+            color: #1f3c88;
+        }
+    </style>
+</head>
+<body>
+<div class="top-border"></div>
+<div class="main-container">
+    <div class="poem-elegant">
+        <div class="poem-lines">Энергия не исчезает —<br>Она лишь формы изменяет...</div>
+        <div class="poem-author">Закон сохранения</div>
+    </div>
+    <header>
+        <h1>ФИЗИКА · ПРЕВРАЩЕНИЯ ЭНЕРГИИ ПРИ КОЛЕБАНИЯХ</h1>
+        <p>Интерактивные задания на основе §3</p>
+    </header>
+
+    <div class="extra-links">
+        <a href="../chapters/chapter_3.html">← Вернуться к параграфу</a>
+    </div>
+
+    <!-- ЗАДАНИЕ 1: соедини блоки (термины) -->
+    <section class="interactive-section">
+        <h2>Задание 1. Соедини термин и определение</h2>
+        <div class="match-container" id="matchGame">
+            <div class="match-column" id="termsColumn">
+                <h3>📘 Термины</h3>
+                <div class="drag-item" draggable="true" data-term="kinetic">Кинетическая энергия</div>
+                <div class="drag-item" draggable="true" data-term="potential">Потенциальная энергия</div>
+                <div class="drag-item" draggable="true" data-term="mechanical">Полная механическая энергия</div>
+                <div class="drag-item" draggable="true" data-term="amplitude">Амплитуда колебаний</div>
+            </div>
+            <div class="match-column" id="descColumn">
+                <h3>📋 Определения</h3>
+                <div class="drop-zone" data-accept="kinetic">Энергия движения: W<sub>к</sub> = mv²/2</div>
+                <div class="drop-zone" data-accept="potential">Энергия взаимодействия: W<sub>п</sub> = kx²/2 или mgh</div>
+                <div class="drop-zone" data-accept="mechanical">Сумма кинетической и потенциальной энергий (сохраняется при отсутствии трения)</div>
+                <div class="drop-zone" data-accept="amplitude">Максимальное отклонение от положения равновесия (энергия пропорциональна её квадрату)</div>
+            </div>
+        </div>
+        <button class="reset-button" id="resetMatch">⟲ Начать сначала</button>
+        <div class="message" id="matchMessage">Перетащи термин на подходящее определение</div>
+    </section>
+
+    <!-- ЗАДАНИЕ 2: тест с 12 вопросами -->
+    <section class="interactive-section">
+        <h2>Задание 2. Тест: превращения энергии</h2>
+        <div class="test-wrapper" id="quizContainer">
+            <div class="question-counter" id="questionCounter">Вопрос 1 / 12</div>
+
+            <div id="quizQuestions">
+                <!-- Вопрос 1 -->
+                <div class="question-block" id="q1" data-qid="1" 
+                     data-hint="Полная механическая энергия = кинетическая + потенциальная. При отсутствии трения она постоянна.">
+                    <div class="question-text">1. Что такое полная механическая энергия колебательной системы?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="true">Сумма кинетической и потенциальной энергии, которая сохраняется при отсутствии трения</div>
+                        <div class="answer-option" data-correct="false">Только кинетическая энергия</div>
+                        <div class="answer-option" data-correct="false">Только потенциальная энергия</div>
+                        <div class="answer-option" data-correct="false">Разность кинетической и потенциальной энергии</div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 2 -->
+                <div class="question-block hidden" id="q2" data-qid="2" 
+                     data-hint="Вспомни рисунок 19 и 20: в крайних точках скорость равна нулю, значит кинетическая энергия минимальна.">
+                    <div class="question-text">2. В какой точке траектории математического маятника кинетическая энергия максимальна?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="true">В положении равновесия</div>
+                        <div class="answer-option" data-correct="false">В точках максимального отклонения</div>
+                        <div class="answer-option" data-correct="false">В любой точке траектории</div>
+                        <div class="answer-option" data-correct="false">На половине пути от равновесия до крайней точки</div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 3 -->
+                <div class="question-block hidden" id="q3" data-qid="3" 
+                     data-hint="В крайних точках скорость = 0, поэтому кинетическая энергия = 0.">
+                    <div class="question-text">3. В каких точках траектории потенциальная энергия пружинного маятника максимальна?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="true">В точках максимального отклонения (x = ±A)</div>
+                        <div class="answer-option" data-correct="false">В положении равновесия (x = 0)</div>
+                        <div class="answer-option" data-correct="false">В любой точке</div>
+                        <div class="answer-option" data-correct="false">Только при x = A (справа от равновесия)</div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 4 -->
+                <div class="question-block hidden" id="q4" data-qid="4" 
+                     data-hint="Из рисунка 22 видно, что частота изменения энергии в 2 раза больше частоты колебаний.">
+                    <div class="question-text">4. Как связана частота изменения кинетической энергии с частотой колебаний?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="true">В 2 раза больше</div>
+                        <div class="answer-option" data-correct="false">Равна частоте колебаний</div>
+                        <div class="answer-option" data-correct="false">В 2 раза меньше</div>
+                        <div class="answer-option" data-correct="false">Не связана</div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 5 -->
+                <div class="question-block hidden" id="q5" data-qid="5" 
+                     data-hint="Формула для потенциальной энергии пружины: Wп = kx²/2. Максимальное значение при x = A.">
+                    <div class="question-text">5. Чему равна максимальная потенциальная энергия пружинного маятника?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="true">kA²/2</div>
+                        <div class="answer-option" data-correct="false">kA²</div>
+                        <div class="answer-option" data-correct="false">mv²/2</div>
+                        <div class="answer-option" data-correct="false">mgA</div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 6 -->
+                <div class="question-block hidden" id="q6" data-qid="6" 
+                     data-hint="Формула (1): mv²max/2 = mghmax. Отсюда vmax = √(2ghmax).">
+                    <div class="question-text">6. По какой формуле можно найти максимальную скорость математического маятника?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="true">v<sub>max</sub> = √(2gh<sub>max</sub>)</div>
+                        <div class="answer-option" data-correct="false">v<sub>max</sub> = √(gh<sub>max</sub>)</div>
+                        <div class="answer-option" data-correct="false">v<sub>max</sub> = 2gh<sub>max</sub></div>
+                        <div class="answer-option" data-correct="false">v<sub>max</sub> = gh<sub>max</sub>/2</div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 7 (расчетная) -->
+                <div class="question-block hidden" id="q7" data-qid="7" 
+                     data-hint="Воспользуйся формулой vmax = √(2ghmax). g≈10 м/с².">
+                    <div class="question-text">7. Математический маятник отклонен на высоту 0.2 м от положения равновесия. Какова его максимальная скорость? (g = 10 м/с²)</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="true">2 м/с</div>
+                        <div class="answer-option" data-correct="false">1 м/с</div>
+                        <div class="answer-option" data-correct="false">4 м/с</div>
+                        <div class="answer-option" data-correct="false">0.5 м/с</div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 8 (расчетная) -->
+                <div class="question-block hidden" id="q8" data-qid="8" 
+                     data-hint="Полная энергия равна максимальной потенциальной: W = kA²/2. A = 0.05 м.">
+                    <div class="question-text">8. Пружинный маятник с жесткостью 200 Н/м колеблется с амплитудой 5 см. Чему равна полная энергия маятника?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="true">0.25 Дж</div>
+                        <div class="answer-option" data-correct="false">0.5 Дж</div>
+                        <div class="answer-option" data-correct="false">5 Дж</div>
+                        <div class="answer-option" data-correct="false">25 Дж</div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 9 (расчетная) -->
+                <div class="question-block hidden" id="q9" data-qid="9" 
+                     data-hint="В положении равновесия энергия полностью кинетическая: W = mv²/2. Отсюда v = √(2W/m).">
+                    <div class="question-text">9. Полная энергия математического маятника массой 0.1 кг равна 0.2 Дж. Какова его максимальная скорость?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="true">2 м/с</div>
+                        <div class="answer-option" data-correct="false">1 м/с</div>
+                        <div class="answer-option" data-correct="false">4 м/с</div>
+                        <div class="answer-option" data-correct="false">0.5 м/с</div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 10 -->
+                <div class="question-block hidden" id="q10" data-qid="10" 
+                     data-hint="Смотри рисунок 22: когда кинетическая максимальна, потенциальная = 0, и наоборот.">
+                    <div class="question-text">10. В какой момент времени кинетическая и потенциальная энергии равны?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="true">Когда x = A/√2 (отклонение составляет 0.707 от амплитуды)</div>
+                        <div class="answer-option" data-correct="false">В положении равновесия</div>
+                        <div class="answer-option" data-correct="false">В крайних точках</div>
+                        <div class="answer-option" data-correct="false">Они никогда не равны</div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 11 -->
+                <div class="question-block hidden" id="q11" data-qid="11" 
+                     data-hint="При отсутствии трения полная энергия сохраняется, но формы энергии переходят друг в друга.">
+                    <div class="question-text">11. Какие превращения энергии происходят при колебаниях математического маятника?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="true">Потенциальная энергия переходит в кинетическую и обратно</div>
+                        <div class="answer-option" data-correct="false">Только кинетическая энергия изменяется</div>
+                        <div class="answer-option" data-correct="false">Только потенциальная энергия изменяется</div>
+                        <div class="answer-option" data-correct="false">Энергия не изменяется, только направление движения</div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 12 (расчетная) -->
+                <div class="question-block hidden" id="q12" data-qid="12" 
+                     data-hint="В любой точке W = mv²/2 + kx²/2. Подставь x = A/2, но проще использовать W = kA²/2.">
+                    <div class="question-text">12. Пружинный маятник колеблется с амплитудой 0.1 м и жесткостью 100 Н/м. Какова потенциальная энергия при смещении x = 0.05 м?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="true">0.125 Дж</div>
+                        <div class="answer-option" data-correct="false">0.25 Дж</div>
+                        <div class="answer-option" data-correct="false">0.5 Дж</div>
+                        <div class="answer-option" data-correct="false">0.0625 Дж</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-feedback" id="quizFeedback">Выберите вариант ответа.</div>
+            <div id="hintBox" class="theory-reference hidden"></div>
+
+            <div class="nav-buttons">
+                <button class="secondary-btn" id="prevBtn" disabled>← Назад</button>
+                <button class="secondary-btn" id="nextBtn" disabled>Вперёд →</button>
+            </div>
+            <button class="reset-button" id="resetQuiz" style="margin: 20px auto 0;">⟲ Сбросить тест</button>
+        </div>
+    </section>
+    <div class="footnote">* При ошибке показывается подсказка. «Вперёд» доступен только после верного ответа.</div>
+    <footer style="text-align:center; margin: 25px 0 10px;">© 2026 · Интерактив по физике</footer>
+</div>
+<div class="bottom-border"></div>
+
+<script>
+    (function() {
+        // ---------- 1. drag & drop (соедини блоки) ----------
+        const dragItems = document.querySelectorAll('.drag-item');
+        const dropZones = document.querySelectorAll('.drop-zone');
+        const matchMessage = document.getElementById('matchMessage');
+        let draggedElement = null;
+
+        function resetMatchGame() {
+            dropZones.forEach(zone => {
+                zone.classList.remove('matched');
+                let txt = zone.textContent.replace(' ✓', '');
+                zone.textContent = txt;
+            });
+            matchMessage.textContent = 'Перетащи термин на подходящее определение';
+            matchMessage.style.color = '#1f3c88';
+        }
+
+        dragItems.forEach(item => {
+            item.addEventListener('dragstart', (e) => {
+                draggedElement = item;
+                e.dataTransfer.setData('text/plain', item.dataset.term);
+                item.classList.add('dragging');
+            });
+            item.addEventListener('dragend', () => {
+                item.classList.remove('dragging');
+                draggedElement = null;
+            });
+        });
+
+        dropZones.forEach(zone => {
+            zone.addEventListener('dragover', (e) => e.preventDefault());
+            zone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                if (zone.classList.contains('matched')) {
+                    matchMessage.textContent = '⚠️ Это уже сопоставлено!';
+                    matchMessage.style.color = '#b6570a';
+                    return;
+                }
+                const term = e.dataTransfer.getData('text/plain');
+                if (!term) return;
+                if (term === zone.dataset.accept) {
+                    zone.classList.add('matched');
+                    zone.textContent = zone.textContent + ' ✓';
+                    matchMessage.textContent = '✅ Верно! Продолжай.';
+                    matchMessage.style.color = '#1d7a3c';
+                } else {
+                    matchMessage.textContent = '❌ Неправильно. Попробуй ещё.';
+                    matchMessage.style.color = '#b13e3e';
+                }
+            });
+        });
+
+        document.getElementById('resetMatch').addEventListener('click', resetMatchGame);
+
+        // ---------- 2. ТЕСТ ----------
+        const questions = document.querySelectorAll('.question-block');
+        const totalQuestions = questions.length;
+        let currentIndex = 0;
+        const counterDiv = document.getElementById('questionCounter');
+        const feedbackDiv = document.getElementById('quizFeedback');
+        const hintBox = document.getElementById('hintBox');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const resetQuizBtn = document.getElementById('resetQuiz');
+
+        function showQuestion(index) {
+            questions.forEach((q, i) => {
+                if (i === index) q.classList.remove('hidden');
+                else q.classList.add('hidden');
+            });
+            counterDiv.textContent = `Вопрос ${index+1} / ${totalQuestions}`;
+
+            const currentQ = questions[currentIndex];
+            const hasCorrect = currentQ.querySelector('.correct') !== null;
+
+            if (hasCorrect) {
+                nextBtn.disabled = false;
+            } else {
+                nextBtn.disabled = true;
+            }
+
+            updateFeedbackForCurrent();
+            updateNavButtons();
+        }
+
+        function updateFeedbackForCurrent() {
+            const currentQ = questions[currentIndex];
+            if (!currentQ) return;
+            const hasCorrect = currentQ.querySelector('.correct') !== null;
+            const hasIncorrect = currentQ.querySelector('.incorrect') !== null;
+
+            if (hasCorrect) {
+                feedbackDiv.innerHTML = '✅ Правильно! Можно перейти дальше.';
+                hintBox.classList.add('hidden');
+            } else if (hasIncorrect) {
+                feedbackDiv.innerHTML = '❌ Неверно. Вот подсказка:';
+                const hintText = currentQ.dataset.hint || 'Подсказка отсутствует. Перечитай §3.';
+                hintBox.innerHTML = `<div class="theory-reference"><span class="bold-ref">📘 Подсказка:</span> ${hintText}</div>`;
+                hintBox.classList.remove('hidden');
+            } else {
+                feedbackDiv.innerHTML = 'Выберите вариант ответа.';
+                hintBox.classList.add('hidden');
+            }
+        }
+
+        function updateNavButtons() {
+            prevBtn.disabled = (currentIndex === 0);
+        }
+
+        function answerHandler(e) {
+            const target = e.target.closest('.answer-option');
+            if (!target) return;
+            const currentQ = questions[currentIndex];
+            if (!currentQ) return;
+
+            if (currentQ.querySelector('.correct') || currentQ.querySelector('.incorrect')) return;
+
+            const isCorrect = target.dataset.correct === 'true';
+
+            if (isCorrect) {
+                target.classList.add('correct');
+                feedbackDiv.innerHTML = '✅ Правильно! Можно перейти дальше.';
+                hintBox.classList.add('hidden');
+                nextBtn.disabled = false;
+            } else {
+                target.classList.add('incorrect');
+                feedbackDiv.innerHTML = '❌ Неверно. Вот подсказка:';
+                const hintText = currentQ.dataset.hint || 'Подсказка отсутствует. Перечитай §3.';
+                hintBox.innerHTML = `<div class="theory-reference"><span class="bold-ref">📘 Подсказка:</span> ${hintText}</div>`;
+                hintBox.classList.remove('hidden');
+                nextBtn.disabled = true;
+            }
+        }
+
+        function resetQuiz() {
+            questions.forEach(q => {
+                q.querySelectorAll('.answer-option').forEach(opt => {
+                    opt.classList.remove('correct', 'incorrect');
+                });
+            });
+            currentIndex = 0;
+            showQuestion(0);
+            feedbackDiv.innerHTML = 'Выберите вариант ответа.';
+            hintBox.classList.add('hidden');
+        }
+
+        document.getElementById('quizQuestions').addEventListener('click', answerHandler);
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                showQuestion(currentIndex);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < totalQuestions - 1) {
+                currentIndex++;
+                showQuestion(currentIndex);
+            }
+        });
+
+        resetQuizBtn.addEventListener('click', resetQuiz);
+
+        resetQuiz();
+    })();
+</script>
+</body>
+</html>

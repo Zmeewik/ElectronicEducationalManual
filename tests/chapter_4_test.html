@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Физика · Свободные и вынужденные колебания. Резонанс: тест</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Georgia', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #eef2f7 0%, #d9e4f5 100%);
+            color: #1e2b3c;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-border, .bottom-border {
+            background-color: #f5b81b;
+            height: 8px;
+            width: 100%;
+            flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .main-container {
+            flex: 1;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .poem-elegant {
+            text-align: center;
+            margin: 10px 0 25px 0;
+            padding: 0.5rem 0;
+        }
+        .poem-elegant::before,
+        .poem-elegant::after {
+            content: '';
+            display: block;
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #f5b81b, transparent);
+            margin: 0.5rem auto;
+        }
+        .poem-lines {
+            font-family: Georgia, serif;
+            font-size: 1.2rem;
+            color: #2f4858;
+            font-style: italic;
+        }
+        .poem-author {
+            color: #7d6b3a;
+            margin-top: 5px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: #13294b;
+            text-align: center;
+            margin-bottom: 0.2rem;
+        }
+        header p {
+            text-align: center;
+            color: #3d5a73;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .interactive-section {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+            border-radius: 40px;
+            padding: 30px 35px;
+            margin: 25px 0;
+            box-shadow: 0 20px 35px rgba(0, 20, 40, 0.2);
+            border: 1px solid rgba(245, 184, 27, 0.4);
+        }
+
+        .interactive-section h2 {
+            font-size: 2.2rem;
+            font-weight: 400;
+            color: #1f3c88;
+            border-left: 8px solid #f5b81b;
+            padding-left: 25px;
+            margin-bottom: 30px;
+            letter-spacing: -0.5px;
+        }
+
+        /* ЗАДАНИЕ 1: соедини блоки */
+        .match-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 35px;
+            justify-content: center;
+        }
+        .match-column {
+            flex: 1 1 280px;
+            background: #f8fbff;
+            border-radius: 32px;
+            padding: 25px 20px;
+            box-shadow: inset 0 2px 8px #b5c6dd, 0 10px 15px rgba(0,0,0,0.05);
+        }
+        .match-column h3 {
+            text-align: center;
+            color: #13294b;
+            font-weight: 500;
+            border-bottom: 2px dashed #f5b81b;
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            font-size: 1.6rem;
+        }
+        .drag-item, .drop-zone {
+            background: white;
+            padding: 16px 14px;
+            margin: 15px 0;
+            border-radius: 50px;
+            border: 2px solid #bac9ec;
+            cursor: pointer;
+            transition: 0.1s;
+            text-align: center;
+            font-weight: 500;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.04);
+            user-select: none;
+        }
+        .drag-item {
+            background: #e1ebfc;
+            border-color: #1f3c88;
+            color: #1f3c88;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .drag-item.dragging {
+            opacity: 0.5;
+            transform: scale(0.97);
+        }
+        .drop-zone {
+            background: #f9f3df;
+            border: 2px dashed #f5b81b;
+            color: #2c3e4f;
+        }
+        .drop-zone.matched {
+            background: #c8e6c9;
+            border: 2px solid #2e7d32;
+            color: #1b5e20;
+            font-weight: 600;
+            pointer-events: none;
+        }
+        .drop-zone.matched::after {
+            content: " ✓";
+            font-size: 1.4rem;
+            float: right;
+            margin-right: 8px;
+        }
+        .reset-button {
+            background: #f5b81b;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #13294b;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #b47d10;
+            transition: 0.07s linear;
+            margin: 30px auto 0;
+            display: block;
+            width: fit-content;
+        }
+        .reset-button:active {
+            transform: translateY(6px);
+            box-shadow: none;
+        }
+        .message {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 1.2rem;
+            min-height: 2.5rem;
+            color: #1f3c88;
+            font-weight: 500;
+        }
+
+        /* ТЕСТ */
+        .test-wrapper {
+            background: rgba(255,255,255,0.5);
+            border-radius: 40px;
+            padding: 25px;
+        }
+        .question-counter {
+            font-size: 1.2rem;
+            color: #13294b;
+            margin-bottom: 15px;
+            background: #f5e7c8;
+            display: inline-block;
+            padding: 6px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+        }
+        .question-block {
+            background: #ffffffde;
+            border-radius: 32px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border-left: 12px solid #f5b81b;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+        }
+        .question-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #0f2862;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+        .answers {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .answer-option {
+            background: #f3f7ff;
+            border-radius: 60px;
+            padding: 16px 28px;
+            border: 2px solid #9bb2d9;
+            cursor: pointer;
+            transition: 0.1s;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+        }
+        .answer-option:hover {
+            background: #dae6ff;
+            border-color: #f5b81b;
+        }
+        .answer-option.correct {
+            background: #b9f6ca;
+            border-color: #00a86b;
+            pointer-events: none;
+        }
+        .answer-option.incorrect {
+            background: #ffe0e0;
+            border-color: #c62828;
+            pointer-events: none;
+        }
+        .test-feedback {
+            margin: 20px 0;
+            padding: 20px 25px;
+            border-radius: 28px;
+            background: #fff3d6;
+            font-size: 1.2rem;
+            border-left: 8px solid #f5b81b;
+        }
+        .theory-reference {
+            background: #fcf8e8;
+            padding: 22px 25px;
+            border-radius: 30px;
+            border: 2px solid #f5b81b;
+            margin: 20px 0 10px;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .bold-ref {
+            font-weight: 700;
+            color: #13294b;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0 10px;
+        }
+        .secondary-btn {
+            background: #e0e7f5;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #13294b;
+            cursor: pointer;
+            border: 2px solid #9bb2d9;
+            transition: 0.1s;
+        }
+        .secondary-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #cfd9e9;
+            border-color: #a0aec0;
+        }
+        .secondary-btn:hover:not(:disabled) {
+            background: #cddcff;
+            border-color: #f5b81b;
+        }
+        .footnote {
+            text-align: center;
+            margin: 25px 0 5px;
+            color: #4f5b66;
+        }
+        .extra-links {
+            margin: 20px 0;
+        }
+        .extra-links a {
+            display: inline-block;
+            padding: 10px 25px;
+            background: #1f3c88;
+            color: white;
+            text-decoration: none;
+            border-radius: 40px;
+            margin-right: 15px;
+            transition: all 0.2s;
+            border: 2px solid #f5b81b;
+        }
+        .extra-links a:hover {
+            background: #f5b81b;
+            color: #1f3c88;
+        }
+    </style>
+</head>
+<body>
+<div class="top-border"></div>
+<div class="main-container">
+    <div class="poem-elegant">
+        <div class="poem-lines">Если частота совпала —<br>Амплитуда вдруг подскочит!</div>
+        <div class="poem-author">Явление резонанса</div>
+    </div>
+    <header>
+        <h1>ФИЗИКА · СВОБОДНЫЕ И ВЫНУЖДЕННЫЕ КОЛЕБАНИЯ. РЕЗОНАНС</h1>
+        <p>Интерактивные задания на основе §4</p>
+    </header>
+
+    <div class="extra-links">
+        <a href="../chapters/chapter_4.html">← Вернуться к параграфу</a>
+    </div>
+
+    <!-- ЗАДАНИЕ 1: соедини блоки (термины) -->
+    <section class="interactive-section">
+        <h2>Задание 1. Соедини термин и определение</h2>
+        <div class="match-container" id="matchGame">
+            <div class="match-column" id="termsColumn">
+                <h3>📘 Термины</h3>
+                <div class="drag-item" draggable="true" data-term="free">Свободные колебания</div>
+                <div class="drag-item" draggable="true" data-term="damped">Затухающие колебания</div>
+                <div class="drag-item" draggable="true" data-term="forced">Вынужденные колебания</div>
+                <div class="drag-item" draggable="true" data-term="resonance">Резонанс</div>
+            </div>
+            <div class="match-column" id="descColumn">
+                <h3>📋 Определения</h3>
+                <div class="drop-zone" data-accept="free">Колебания под действием только внутренних сил после выведения из равновесия</div>
+                <div class="drop-zone" data-accept="damped">Колебания с уменьшающейся амплитудой из-за потерь энергии</div>
+                <div class="drop-zone" data-accept="forced">Колебания под действием внешней периодической силы</div>
+                <div class="drop-zone" data-accept="resonance">Резкое возрастание амплитуды при совпадении частот</div>
+            </div>
+        </div>
+        <button class="reset-button" id="resetMatch">⟲ Начать сначала</button>
+        <div class="message" id="matchMessage">Перетащи термин на подходящее определение</div>
+    </section>
+
+    <!-- ЗАДАНИЕ 2: тест с 12 вопросами -->
+    <section class="interactive-section">
+        <h2>Задание 2. Тест: свободные и вынужденные колебания, резонанс</h2>
+        <div class="test-wrapper" id="quizContainer">
+            <div class="question-counter" id="questionCounter">Вопрос 1 / 12</div>
+
+            <div id="quizQuestions">
+                <!-- Вопрос 1 - правильный ответ не первый -->
+                <div class="question-block" id="q1" data-qid="1" 
+                     data-hint="Вспомни определение из параграфа: свободные колебания происходят под действием внутренних сил после выведения из равновесия.">
+                    <div class="question-text">1. Какие колебания называются свободными?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="false">Колебания под действием внешней силы</div>
+                        <div class="answer-option" data-correct="true">Колебания под действием внутренних сил после выведения из равновесия</div>
+                        <div class="answer-option" data-correct="false">Колебания с постоянной амплитудой</div>
+                        <div class="answer-option" data-correct="false">Колебания, которые никогда не затухают</div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 2 - правильный ответ не первый -->
+                <div class="question-block hidden" id="q2" data-qid="2" 
+                     data-hint="Посмотри на рис. 23, б и определение: амплитуда уменьшается из-за потерь энергии.">
+                    <div class="question-text">2. Что такое затухающие колебания?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="false">Колебания с постоянной амплитудой</div>
+                        <div class="answer-option" data-correct="false">Колебания, частота которых увеличивается</div>
+                        <div class="answer-option" data-correct="true">Колебания, амплитуда которых уменьшается со временем</div>
+                        <div class="answer-option" data-correct="false">Колебания, которые никогда не прекращаются</div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 3 - правильный ответ не первый -->
+                <div class="question-block hidden" id="q3" data-qid="3" 
+                     data-hint="Вспомни определение вынужденных колебаний: они происходят под действием внешней периодической силы.">
+                    <div class="question-text">3. Какие колебания называются вынужденными?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="true">Колебания под действием внешней периодической силы</div>
+                        <div class="answer-option" data-correct="false">Колебания только под действием силы тяжести</div>
+                        <div class="answer-option" data-correct="false">Колебания в отсутствие сил трения</div>
+                        <div class="answer-option" data-correct="false">Колебания, которые затухают со временем</div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 4 - правильный ответ не первый -->
+                <div class="question-block hidden" id="q4" data-qid="4" 
+                     data-hint="Резонанс - это резкое возрастание амплитуды при совпадении частоты вынуждающей силы с собственной частотой.">
+                    <div class="question-text">4. Какое явление называется резонансом?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="false">Уменьшение амплитуды колебаний</div>
+                        <div class="answer-option" data-correct="true">Резкое возрастание амплитуды при совпадении частот</div>
+                        <div class="answer-option" data-correct="false">Полное прекращение колебаний</div>
+                        <div class="answer-option" data-correct="false">Увеличение частоты колебаний</div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 5 - правильный ответ не первый -->
+                <div class="question-block hidden" id="q5" data-qid="5" 
+                     data-hint="В параграфе сказано: при резонансе создаются оптимальные условия для передачи энергии от источника к системе.">
+                    <div class="question-text">5. Что происходит при резонансе с передачей энергии?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="false">Энергия не передается</div>
+                        <div class="answer-option" data-correct="false">Энергия передается минимально</div>
+                        <div class="answer-option" data-correct="false">Энергия рассеивается</div>
+                        <div class="answer-option" data-correct="true">Создаются оптимальные условия для передачи энергии</div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 6 - правильный ответ не первый -->
+                <div class="question-block hidden" id="q6" data-qid="6" 
+                     data-hint="На рис. 24 показано: чем больше сила трения, тем быстрее затухают колебания.">
+                    <div class="question-text">6. Как влияет сила трения на затухающие колебания?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="false">Увеличивает амплитуду</div>
+                        <div class="answer-option" data-correct="true">Увеличивает скорость затухания</div>
+                        <div class="answer-option" data-correct="false">Не влияет на колебания</div>
+                        <div class="answer-option" data-correct="false">Увеличивает частоту</div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 7 - правильный ответ не первый -->
+                <div class="question-block hidden" id="q7" data-qid="7" 
+                     data-hint="Чему равна частота установившихся вынужденных колебаний? В параграфе сказано: частоте вынуждающей силы.">
+                    <div class="question-text">7. Чему равна частота установившихся вынужденных колебаний?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="false">Собственной частоте системы</div>
+                        <div class="answer-option" data-correct="false">Всегда постоянна</div>
+                        <div class="answer-option" data-correct="true">Частоте вынуждающей силы</div>
+                        <div class="answer-option" data-correct="false">Зависит от амплитуды</div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 8 - правильный ответ не первый -->
+                <div class="question-block hidden" id="q8" data-qid="8" 
+                     data-hint="Взгляни на рис. 26: чем меньше трение, тем выше и острее пик резонанса.">
+                    <div class="question-text">8. Как зависит резонансная кривая от силы трения?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="false">Не зависит</div>
+                        <div class="answer-option" data-correct="true">Чем меньше трение, тем выше пик</div>
+                        <div class="answer-option" data-correct="false">Чем больше трение, тем выше пик</div>
+                        <div class="answer-option" data-correct="false">При трении резонанс исчезает</div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 9 (расчетная) - правильный ответ не первый -->
+                <div class="question-block hidden" id="q9" data-qid="9" 
+                     data-hint="Период связан с частотой: T = 1/ν. Собственная частота 2 Гц → период 0.5 с.">
+                    <div class="question-text">9. Собственная частота колебаний системы равна 2 Гц. Каков период её свободных колебаний?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="false">2 с</div>
+                        <div class="answer-option" data-correct="false">1 с</div>
+                        <div class="answer-option" data-correct="true">0.5 с</div>
+                        <div class="answer-option" data-correct="false">0.25 с</div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 10 (анализ графика) - правильный ответ не первый -->
+                <div class="question-block hidden" id="q10" data-qid="10" 
+                     data-hint="При резонансе частота вынуждающей силы равна собственной частоте системы.">
+                    <div class="question-text">10. При какой частоте вынуждающей силы наблюдается резонанс?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="false">При частоте, вдвое меньше собственной</div>
+                        <div class="answer-option" data-correct="false">При любой частоте</div>
+                        <div class="answer-option" data-correct="false">При частоте, вдвое больше собственной</div>
+                        <div class="answer-option" data-correct="true">При частоте, равной собственной частоте системы</div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 11 - пример из жизни - правильный ответ не первый -->
+                <div class="question-block hidden" id="q11" data-qid="11" 
+                     data-hint="В параграфе есть пример: солдаты идут не в ногу, чтобы не вызвать резонанс моста.">
+                    <div class="question-text">11. Почему солдатам при переходе через мост дают команду «идти не в ногу»?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="true">Чтобы избежать резонанса и разрушения моста</div>
+                        <div class="answer-option" data-correct="false">Чтобы сохранить строй</div>
+                        <div class="answer-option" data-correct="false">Чтобы замедлить движение</div>
+                        <div class="answer-option" data-correct="false">Чтобы не мешать другим</div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 12 - эксперимент с маятниками - правильный ответ не первый -->
+                <div class="question-block hidden" id="q12" data-qid="12" 
+                     data-hint="Посмотри на рис. 27 и описание: четвертый маятник раскачивается, потому что его длина равна длине второго.">
+                    <div class="question-text">12. В эксперименте с маятниками на нити (рис. 27) какой маятник будет раскачиваться сильнее всего, если раскачивать второй?</div>
+                    <div class="answers">
+                        <div class="answer-option" data-correct="false">Первый</div>
+                        <div class="answer-option" data-correct="false">Третий</div>
+                        <div class="answer-option" data-correct="true">Четвертый (с такой же длиной, как у второго)</div>
+                        <div class="answer-option" data-correct="false">Все одинаково</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-feedback" id="quizFeedback">Выберите вариант ответа.</div>
+            <div id="hintBox" class="theory-reference hidden"></div>
+
+            <div class="nav-buttons">
+                <button class="secondary-btn" id="prevBtn" disabled>← Назад</button>
+                <button class="secondary-btn" id="nextBtn" disabled>Вперёд →</button>
+            </div>
+            <button class="reset-button" id="resetQuiz" style="margin: 20px auto 0;">⟲ Сбросить тест</button>
+        </div>
+    </section>
+    <div class="footnote">* При ошибке показывается подсказка. «Вперёд» доступен только после верного ответа.</div>
+    <footer style="text-align:center; margin: 25px 0 10px;">© 2026 · Интерактив по физике</footer>
+</div>
+<div class="bottom-border"></div>
+
+<script>
+    (function() {
+        // ---------- 1. drag & drop (соедини блоки) ----------
+        const dragItems = document.querySelectorAll('.drag-item');
+        const dropZones = document.querySelectorAll('.drop-zone');
+        const matchMessage = document.getElementById('matchMessage');
+        let draggedElement = null;
+
+        function resetMatchGame() {
+            dropZones.forEach(zone => {
+                zone.classList.remove('matched');
+                let txt = zone.textContent.replace(' ✓', '');
+                zone.textContent = txt;
+            });
+            matchMessage.textContent = 'Перетащи термин на подходящее определение';
+            matchMessage.style.color = '#1f3c88';
+        }
+
+        dragItems.forEach(item => {
+            item.addEventListener('dragstart', (e) => {
+                draggedElement = item;
+                e.dataTransfer.setData('text/plain', item.dataset.term);
+                item.classList.add('dragging');
+            });
+            item.addEventListener('dragend', () => {
+                item.classList.remove('dragging');
+                draggedElement = null;
+            });
+        });
+
+        dropZones.forEach(zone => {
+            zone.addEventListener('dragover', (e) => e.preventDefault());
+            zone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                if (zone.classList.contains('matched')) {
+                    matchMessage.textContent = '⚠️ Это уже сопоставлено!';
+                    matchMessage.style.color = '#b6570a';
+                    return;
+                }
+                const term = e.dataTransfer.getData('text/plain');
+                if (!term) return;
+                if (term === zone.dataset.accept) {
+                    zone.classList.add('matched');
+                    zone.textContent = zone.textContent + ' ✓';
+                    matchMessage.textContent = '✅ Верно! Продолжай.';
+                    matchMessage.style.color = '#1d7a3c';
+                } else {
+                    matchMessage.textContent = '❌ Неправильно. Попробуй ещё.';
+                    matchMessage.style.color = '#b13e3e';
+                }
+            });
+        });
+
+        document.getElementById('resetMatch').addEventListener('click', resetMatchGame);
+
+        // ---------- 2. ТЕСТ ----------
+        const questions = document.querySelectorAll('.question-block');
+        const totalQuestions = questions.length;
+        let currentIndex = 0;
+        const counterDiv = document.getElementById('questionCounter');
+        const feedbackDiv = document.getElementById('quizFeedback');
+        const hintBox = document.getElementById('hintBox');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const resetQuizBtn = document.getElementById('resetQuiz');
+
+        function showQuestion(index) {
+            questions.forEach((q, i) => {
+                if (i === index) q.classList.remove('hidden');
+                else q.classList.add('hidden');
+            });
+            counterDiv.textContent = `Вопрос ${index+1} / ${totalQuestions}`;
+
+            const currentQ = questions[currentIndex];
+            const hasCorrect = currentQ.querySelector('.correct') !== null;
+
+            if (hasCorrect) {
+                nextBtn.disabled = false;
+            } else {
+                nextBtn.disabled = true;
+            }
+
+            updateFeedbackForCurrent();
+            updateNavButtons();
+        }
+
+        function updateFeedbackForCurrent() {
+            const currentQ = questions[currentIndex];
+            if (!currentQ) return;
+            const hasCorrect = currentQ.querySelector('.correct') !== null;
+            const hasIncorrect = currentQ.querySelector('.incorrect') !== null;
+
+            if (hasCorrect) {
+                feedbackDiv.innerHTML = '✅ Правильно! Можно перейти дальше.';
+                hintBox.classList.add('hidden');
+            } else if (hasIncorrect) {
+                feedbackDiv.innerHTML = '❌ Неверно. Вот подсказка:';
+                const hintText = currentQ.dataset.hint || 'Подсказка отсутствует. Перечитай §4.';
+                hintBox.innerHTML = `<div class="theory-reference"><span class="bold-ref">📘 Подсказка:</span> ${hintText}</div>`;
+                hintBox.classList.remove('hidden');
+            } else {
+                feedbackDiv.innerHTML = 'Выберите вариант ответа.';
+                hintBox.classList.add('hidden');
+            }
+        }
+
+        function updateNavButtons() {
+            prevBtn.disabled = (currentIndex === 0);
+        }
+
+        function answerHandler(e) {
+            const target = e.target.closest('.answer-option');
+            if (!target) return;
+            const currentQ = questions[currentIndex];
+            if (!currentQ) return;
+
+            if (currentQ.querySelector('.correct') || currentQ.querySelector('.incorrect')) return;
+
+            const isCorrect = target.dataset.correct === 'true';
+
+            if (isCorrect) {
+                target.classList.add('correct');
+                feedbackDiv.innerHTML = '✅ Правильно! Можно перейти дальше.';
+                hintBox.classList.add('hidden');
+                nextBtn.disabled = false;
+            } else {
+                target.classList.add('incorrect');
+                feedbackDiv.innerHTML = '❌ Неверно. Вот подсказка:';
+                const hintText = currentQ.dataset.hint || 'Подсказка отсутствует. Перечитай §4.';
+                hintBox.innerHTML = `<div class="theory-reference"><span class="bold-ref">📘 Подсказка:</span> ${hintText}</div>`;
+                hintBox.classList.remove('hidden');
+                nextBtn.disabled = true;
+            }
+        }
+
+        function resetQuiz() {
+            questions.forEach(q => {
+                q.querySelectorAll('.answer-option').forEach(opt => {
+                    opt.classList.remove('correct', 'incorrect');
+                });
+            });
+            currentIndex = 0;
+            showQuestion(0);
+            feedbackDiv.innerHTML = 'Выберите вариант ответа.';
+            hintBox.classList.add('hidden');
+        }
+
+        document.getElementById('quizQuestions').addEventListener('click', answerHandler);
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                showQuestion(currentIndex);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < totalQuestions - 1) {
+                currentIndex++;
+                showQuestion(currentIndex);
+            }
+        });
+
+        resetQuizBtn.addEventListener('click', resetQuiz);
+
+        resetQuiz();
+    })();
+</script>
+</body>
+</html>
