@@ -19,6 +19,21 @@
             flex-direction: column;
             min-height: 100vh;
         }
+        
+        .active {
+            background-color: #f5c542 !important;
+            color: #1f3c88 !important;
+            font-weight: bold !important;
+            border-left: 4px solid white !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+        }
+        
+        .topic-list a.visited {
+            opacity: 0.6;
+            background-color: transparent;
+            color: #a0b5d4;
+            border-left: 2px solid #a0b5d4;
+        }
 
         .top-border {
             background-color: #f5c542;
@@ -307,12 +322,12 @@
         <aside>
             <h2>Глава 1. Механические колебания и волны</h2>
             <ul class="topic-list">
-                <li><a href="chapter_1.html">1. Колебательное движение. Гармонические колебания</a></li>
-                <li><a href="chapter_2.html">2. Пружинный и математический маятники</a></li>
-                <li><a href="chapter_3.html">3. Превращения энергии при гармонических колебаниях</a></li>
-                <li><a href="chapter_4.html">4. Свободные и вынужденные колебания. Резонанс</a></li>
-                <li><a href="chapter_5.html">5. Распространение колебаний в упругой среде. Продольные и поперечные волны</a></li>
-                <li><a href="chapter_6.html">6. Звуковые волны</a></li>
+                <li><a href="chapter_1.html" class="active" id="link-chapter_1">1. Колебательное движение. Гармонические колебания</a></li>
+                <li><a href="chapter_2.html" id="link-chapter_2">2. Пружинный и математический маятники</a></li>
+                <li><a href="chapter_3.html" id="link-chapter_3">3. Превращения энергии при гармонических колебаниях</a></li>
+                <li><a href="chapter_4.html" id="link-chapter_4">4. Свободные и вынужденные колебания. Резонанс</a></li>
+                <li><a href="chapter_5.html" id="link-chapter_5">5. Распространение колебаний в упругой среде. Продольные и поперечные волны</a></li>
+                <li><a href="chapter_6.html" id="link-chapter_6">6. Звуковые волны</a></li>
             </ul>
 
             <h2>Глава 2. Электромагнитные колебания и волны</h2>
@@ -596,5 +611,33 @@
 
     <div class="bottom-border"></div>
 
+    <script>
+    (function() {
+        const currentChapterId = 'chapter_1';
+        
+        let viewedChapters = JSON.parse(localStorage.getItem('viewedChapters')) || [];
+        if (!viewedChapters.includes(currentChapterId)) {
+            viewedChapters.push(currentChapterId);
+            localStorage.setItem('viewedChapters', JSON.stringify(viewedChapters));
+        }
+        
+        function markVisitedChapters() {
+            const links = document.querySelectorAll('.topic-list a');
+            links.forEach(link => {
+                const linkId = link.id;
+                if (linkId) {
+                    const chapterId = linkId.replace('link-', '');
+                    if (viewedChapters.includes(chapterId) && chapterId !== currentChapterId) {
+                        link.classList.add('visited');
+                    } else {
+                        link.classList.remove('visited');
+                    }
+                }
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', markVisitedChapters);
+    })();
+    </script>
 </body>
 </html>
