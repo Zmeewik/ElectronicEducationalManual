@@ -13,18 +13,18 @@
 
     <h2>Глава 1. Механические колебания и волны</h2>
     <ul class="topic-list">
-        <li><a href="chapters/chapter_1.html">1. Колебательное движение. Гармонические колебания</a></li>
-        <li><a href="chapters/chapter_2.html">2. Пружинный и математический маятники</a></li>
-        <li><a href="chapters/chapter_3.html">3. Превращения энергии при гармонических колебаниях</a></li>
-        <li><a href="chapters/chapter_4.html">4. Свободные и вынужденные колебания. Резонанс</a></li>
-        <li><a href="chapters/chapter_5.html">5. Распространение колебаний в упругой среде. 
+        <li><a href="chapters/chapter_1.html" id="link-chapter_1">1. Колебательное движение. Гармонические колебания</a></li>
+        <li><a href="chapters/chapter_2.html" id="link-chapter_2">2. Пружинный и математический маятники</a></li>
+        <li><a href="chapters/chapter_3.html" id="link-chapter_3">3. Превращения энергии при гармонических колебаниях</a></li>
+        <li><a href="chapters/chapter_4.html" id="link-chapter_4">4. Свободные и вынужденные колебания. Резонанс</a></li>
+        <li><a href="chapters/chapter_5.html" id="link-chapter_5">5. Распространение колебаний в упругой среде. 
             Продольные и поперечные волны</a></li>
-        <li><a href="chapters/chapter_6.html">6. Звуковые волны</a></li>
+        <li><a href="chapters/chapter_6.html" id="link-chapter_6">6. Звуковые волны</a></li>
     </ul>
 
     <h2>Глава 2. Электромагнитные колебания и волны</h2>
     <ul class="topic-list">
-        <li><a href="chapters/chapter_7.html">7. Колебательный контур. Свободные электромагнитные 
+        <li><a href="chapters/chapter_7.html" id="link-chapter_7">7. Колебательный контур. Свободные электромагнитные 
             колебания в контуре. Формула Томсона. Превращения энергии в колебательном 
             контуре</a></li>
     </ul>
@@ -64,6 +64,34 @@
         © 2026 Учебное пособие по физике | Электронная версия
     </footer>
 </main>
+<script>
+    (function() {
+        const currentChapterId = 'chapter_1';
+        
+        let viewedChapters = JSON.parse(localStorage.getItem('viewedChapters')) || [];
+        if (!viewedChapters.includes(currentChapterId)) {
+            viewedChapters.push(currentChapterId);
+            localStorage.setItem('viewedChapters', JSON.stringify(viewedChapters));
+        }
+        
+        function markVisitedChapters() {
+            const links = document.querySelectorAll('.topic-list a');
+            links.forEach(link => {
+                const linkId = link.id;
+                if (linkId) {
+                    const chapterId = linkId.replace('link-', '');
+                    if (viewedChapters.includes(chapterId) && chapterId !== currentChapterId) {
+                        link.classList.add('visited');
+                    } else {
+                        link.classList.remove('visited');
+                    }
+                }
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', markVisitedChapters);
+    })();
+    </script>
 
 </body>
 </html>
