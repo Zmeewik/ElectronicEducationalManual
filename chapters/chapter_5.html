@@ -5,7 +5,17 @@
     <title>§ 5. Продольные и поперечные волны · Учебное пособие</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../chapterStyles.css">
+<link rel="stylesheet" href="../dependencies/katex/dist/katex.min.css">
 </head>
+
+<script defer src="../dependencies/katex/dist/katex.min.js"></script>
+<script defer src="../dependencies/katex/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]
+  });"></script>
 <body>
 
     <div class="top-border"></div>
@@ -109,13 +119,17 @@
                 <strong>амплитуда (A)</strong> — модуль максимального смещения точек среды от положений равновесия при колебаниях;<br>
                 <strong>период (T)</strong> — время одного колебания (период колебаний точек среды равен периоду колебаний источника волны):</p>
                 <div class="formula">
-                    T = t/N,
+                    \[
+                        T = \frac{t}{N}
+                    \]
                 </div>
                 <p>где t — промежуток времени, в течение которого совершаются N колебаний.</p>
 
                 <p><strong>Частота (ν)</strong> — число колебаний, совершаемых данной системой в единицу времени:</p>
                 <div class="formula">
-                    ν = N/t,
+                    \[
+                        \nu = \frac{N}{t}
+                    \]
                 </div>
                 <p>частота волны равна частоте колебаний источника.</p>
 
@@ -124,11 +138,17 @@
                 <p>Новыми характеристиками волн являются (рис. 35):<br>
                 <strong>длина волны (λ)</strong> — это расстояние, на которое возмущение распространяется за промежуток времени, равный периоду колебаний источника:</p>
                 <div class="formula">
-                    λ = vT; (1)
+                    \[
+                        \lambda = vT
+                    \]
+                    <span class="formula-number">(1)</span>
                 </div>
                 <p><strong>скорость распространения волны (v)</strong> — это скорость распространения колебаний в упругой среде, модуль этой скорости согласно (1) равен:</p>
                 <div class="formula">
-                    v = λ/T = λν. (2)
+                    \[
+                        v = \frac{\lambda}{T} = \lambda \nu
+                    \]
+                    <span class="formula-number">(2)</span>
                 </div>
 
                 <p>Подчеркнем, что скорость распространения волн и скорость колебания частиц — это разные величины.</p>

@@ -226,16 +226,25 @@ header p {
 }
 
 .formula {
-  background: white;
-  padding: 10px 25px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  width: 77%;
+  padding: 15px 20px;
   border-radius: 12px;
   border: 2px solid #f5c542;
-  font-size: 16pt;
-  font-weight: 500;
-  margin: 15px auto;
-  text-align: center;
-  display: table;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background: white;
+  box-sizing: border-box;
+}
+
+.formula .katex-display {
+  justify-self: center;
+  margin: 0;
+}
+
+.formula-number {
+  justify-self: end;
+  font-size: 14pt;
 }
 
 .table-container {
