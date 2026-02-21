@@ -235,6 +235,7 @@ header p {
   border: 2px solid #f5c542;
   background: white;
   box-sizing: border-box;
+  margin: 1rem 0;
 }
 
 .formula .katex-display {
