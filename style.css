@@ -10,6 +10,7 @@ body {
   color: #2c3e50;
   display: flex;
   min-height: 100vh;
+  font-size: 16pt;
 }
 
 /* Левое меню */
@@ -23,7 +24,7 @@ aside {
 
 aside h2 {
   margin-bottom: 15px;
-  font-size: 20px;
+  font-size: 26px;
   border-bottom: 2px solid rgba(255, 255, 255, 0.3);
   padding-bottom: 5px;
 }
@@ -79,13 +80,13 @@ header {
 }
 
 header h1 {
-  font-size: 32px;
+  font-size: 64px;
   margin-bottom: 10px;
   text-align: center;
 }
 
 header p {
-  font-size: 18px;
+  font-size: 16pt;
   color: #555;
   text-align: center;
 }
@@ -103,7 +104,7 @@ header p {
 }
 
 .intro {
-  font-size: 18px;
+  font-size: 16pt;
   line-height: 1.6;
   background: white;
   padding: 20px;
@@ -113,7 +114,7 @@ header p {
 
 footer {
   margin-top: 40px;
-  font-size: 14px;
+  font-size: 14pt;
   color: #777;
 }
 
